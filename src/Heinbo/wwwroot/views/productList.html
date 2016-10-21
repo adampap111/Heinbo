@@ -1,0 +1,196 @@
+﻿<div ng-controller="productListController">
+    <!--=== Content Part ===-->
+    <!--=== Breadcrumbs v4 ===-->
+    <div class="breadcrumbs-v4">
+        <div class="container">
+
+            <h1> <span class="shop-green">{{responseData.product[0].category}}</span> </h1>
+            <ul class="breadcrumb-v4-in">
+                <li><a href="">Home</a></li>
+                <li><a href="">Product</a></li>
+                <li class="active">{{responseData.product[0].category}}</li>
+            </ul>
+        </div><!--/end container-->
+    </div>
+    <!--=== End Breadcrumbs v4 ===-->
+
+    <div class="content container">
+
+        <div class="row">
+
+            <div class="col-md-3 filter-by-block md-margin-bottom-60">
+                <h1>Rendezés</h1>
+                <div class="panel-group" id="accordion">
+
+                </div><!--/end panel group-->
+                <div class="panel-group" id="accordion-v2">
+                    <div ng-if="responseData.brand.length > 0 && responseData.brand[0] != null">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h2 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion-v2" data-target="#collapseTwo">
+                                        Márka
+                                        <i class="fa fa-angle-down"></i>
+                                    </a>
+                                </h2>
+                            </div>
+                            <div id="collapseTwo" class="panel-collapse collapse in">
+                                <div class="panel-body">
+                                    <ul class="list-unstyled checkbox-list">
+                                        <li ng-repeat="brand in responseData.brand track by $index">
+                                            <label class="checkbox">
+                                                <input type="checkbox" data-ng-model='brandFilter[$index + 1]' ng-true-value="'{{brand}}'" ng-false-value="''">
+                                                <i></i>
+                                                {{brand}}
+                                                <small><a href="#">(9)</a></small>
+                                            </label>
+                                        </li>
+
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-if="responseData.category.length > 0 && responseData.category[0] != null">
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h2 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion-v2" data-target="#collapseTwo">
+                                        Típus
+                                        <i class="fa fa-angle-down"></i>
+                                    </a>
+                                </h2>
+                            </div>
+                            <div id="collapseTwo" class="panel-collapse collapse in">
+                                <div class="panel-body">
+                                    <ul class="list-unstyled checkbox-list">
+                                        <li ng-repeat="category in responseData.category track by $index">
+                                            <label class="checkbox">
+                                                <input type="checkbox" data-ng-model='categoryFilter[$index + 1]' ng-true-value="'{{category}}'" ng-false-value="''">
+                                                <i></i>
+                                                {{category}}
+                                                <small><a href="#">(9)</a></small>
+                                            </label>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div><!--/end panel group-->
+                <div ng-if="responseData.size.length > 0 && responseData.size[0] != null">
+                    <div class="panel-group" id="accordion-v3">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h2 class="panel-title">
+
+                                    <a data-toggle="collapse" data-parent="#accordion-v3" data-target="#collapseThree">
+                                        Méret
+                                        <i class="fa fa-angle-down"></i>
+                                    </a>
+                                </h2>
+                            </div>
+                            <div id="collapseThree" class="panel-collapse collapse in">
+                                <div class="panel-body">
+                                    <ul class="list-unstyled checkbox-list">
+
+                                        <li ng-repeat="size in responseData.size track by $index">
+                                            <label class="checkbox">
+                                                <input type="checkbox" data-ng-model='sizeFilter[$index + 1]' ng-true-value="'{{size}}'" ng-false-value="''">
+                                                <i></i>
+                                                {{size}}
+                                                <small><a href="#">(0)</a></small>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div><!--/end panel group-->
+                <button type="button" class="btn btn-u btn-brd btn-brd-hover btn-u-lg btn-u-sea-shop btn-block">Szűrés</button>
+            </div>
+            <div class="col-md-9">
+                <div class="row margin-bottom-5">
+                    <div class="col-sm-4 result-category">
+                        <h2>Találat</h2>
+                        <small class="shop-bg-red badge-results">{{responseData.product.length}} darab</small>
+                    </div>
+                    <div class="col-sm-8">
+                        <ul class="list-inline clear-both">
+                            <li class="grid-list-icons">
+                                <a href="shop-ui-filter-list.html"><i class="fa fa-th-list"></i></a>
+                                <a href="shop-ui-filter-grid.html"><i class="fa fa-th"></i></a>
+                            </li>
+                            <li class="sort-list-btn">
+                                <h3>Rendezés :</h3>
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                        {{order}} <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li ng-click="order='brand'"><a>Márka</a></li>
+                                        <li ng-click="order='category'"><a>Kategória</a></li>
+                                        <li ng-click="order='size'"><a>Méret</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="sort-list-btn">
+                                <h3>Mutat :</h3>
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                        {{limit}} <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li ng-click="limit=9"><a>9</a></li>
+                                        <li ng-click="limit=18"><a>18</a></></li>
+                                        <li ng-click="limit=27"><a>27</a></li>
+
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div><!--/end result category-->
+
+
+                <div class="filter-results">
+                    <div ng-show="vm.isBusy" class="text-center"> <i class="fa fa-spinner fa-spin"></i>Töltés...</div>
+                    <div class="row illustration-v2 margin-bottom-30" ng-repeat="a in [1,2,3,4,5,6,7,8,9,10] | limitTo: (limit/3) track by $index" ng-init="outerIndex = $index">
+                        <div class="col-md-4" ng-repeat="product in (responseData.product.slice(((outerIndex*3)),responseData.product.length) | orderBy: 'brand' | limitTo:3 )">
+                            <div class="product-img product-img-brd">
+
+                                <div><img class="full-width img-responsive" ng-src="../../img/blog/{{product.productName}}.jpg" alt="s"></div>
+                                <a class="product-review">{{product.productName}}</a>
+                                <div class="shop-rgba-dark-green rgba-banner">{{product.brand}}</div>
+                            </div>
+                            <div class="product-description product-description-brd margin-bottom-30">
+                                <div class="overflow-h margin-bottom-5">
+                                    <div class="pull-left">
+                                        <h4 class="title-price">{{product.description}}</h4>
+                                        <span class="gender">{{product.size}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div><!--/end filter resilts-->
+                <div class="text-center">
+                    <ul class="pagination pagination-v2">
+                        <li><a href="#"><i class="fa fa-angle-left"></i></a></li>
+                        <li class="active"><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
+                    </ul>
+                </div><!--/end pagination-->
+
+            </div>
+        </div><!--/end row-->
+    </div><!--/end container-->
+</div>
+<!--=== End Content Part ===-->
