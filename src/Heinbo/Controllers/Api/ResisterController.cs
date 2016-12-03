@@ -14,12 +14,11 @@ namespace Heinbo.Controllers.Api
     public class ResisterController : Controller
     {
         private ISalesRepository _repository;
-      
+
 
         public ResisterController(ISalesRepository repository)
         {
             _repository = repository;
-         
         }
 
         [HttpPost("")]
@@ -28,20 +27,12 @@ namespace Heinbo.Controllers.Api
             if (ModelState.IsValid)
             {
                 var password = theUser.Password;
-           
                 var newUser = Mapper.Map<User>(theUser);
                 //Save to the database
                 await _repository.AddUser(newUser, password);
-               
-                                      
                 return RedirectToAction("Login", "Auth");
-
-
-
-
             }
             return BadRequest("failed to save");
         }
-
     }
 }

@@ -56,8 +56,7 @@ namespace Heinbo.Models
             ProductContainer product = new ProductContainer(
 
             );
-
-
+            
             product.Product.AddRange(_context.Product.ToList()
                   .Where(t => t.Category == category))
                   ;

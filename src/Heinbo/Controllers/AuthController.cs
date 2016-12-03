@@ -24,9 +24,8 @@ namespace Heinbo.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                return RedirectToAction("Register","App");
+                return RedirectToAction("Register", "App");
             }
-
             return View();
         }
 
@@ -36,7 +35,7 @@ namespace Heinbo.Controllers
             if (ModelState.IsValid)
             {
                 var email = vm.Email;
-                 var user = await _userManager.FindByEmailAsync(email);
+                var user = await _userManager.FindByEmailAsync(email);
                 if (user != null)
                 {
                     var _signInResult = await _signInManager.PasswordSignInAsync(user,
@@ -58,7 +57,8 @@ namespace Heinbo.Controllers
                         ModelState.AddModelError("", "Oops, that's not a match.");
                     }
                 }
-                else {
+                else
+                {
                     ModelState.AddModelError("", "The email address does not exist");
                 }
             }
@@ -71,10 +71,9 @@ namespace Heinbo.Controllers
             {
                 await _signInManager.SignOutAsync();
             }
-
             return RedirectToAction("Index", "App");
         }
     }
 
-    
+
 }

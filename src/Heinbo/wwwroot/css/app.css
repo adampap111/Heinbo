@@ -2471,6 +2471,7 @@ img.image-md {
 	width: 100%;
 }
 
+
 /*Equal Height Columns*/
 @media (max-width: 767px) {
 	.equal-height-column {
@@ -2481,6 +2482,7 @@ img.image-md {
 /*Image Classes*/
 .img-width-60 { width: 60px;}
 .img-width-200 { width: 200px;}
+.img-width-300 { width: 300px;}
 .lft-img-margin { margin:0 20px 5px 0;}
 .rgt-img-margin { margin:0 0 5px 10px;}
 

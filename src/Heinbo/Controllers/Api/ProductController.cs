@@ -12,7 +12,7 @@ using Heinbo.Models;
 
 namespace Heinbo.Controllers.Api
 {
-    [Route("api/product")]
+    [Route("api/")]
     public class ProductController : Controller
     {
         private ILogger<ProductController> _logger;
@@ -31,7 +31,6 @@ namespace Heinbo.Controllers.Api
             {
                 var product = _repository.GetAllProducts();
                 return Ok(Mapper.Map<IEnumerable<Product>>(product));
-
             }
             catch (Exception ex)
             {
@@ -40,14 +39,13 @@ namespace Heinbo.Controllers.Api
             }
         }
 
-        [HttpGet("{category}")]
+        [HttpGet("product/{category}")]
         public IActionResult GetProductsByCategory(string category)
         {
             try
             {
                 var product = _repository.GetProductsByCategory(WebUtility.UrlDecode(category));
                 return Json((product));
-
             }
             catch (Exception ex)
             {
@@ -56,17 +54,13 @@ namespace Heinbo.Controllers.Api
             }
         }
 
-
-
-        [HttpGet("{productName}")]
+        [HttpGet("productInfo/{productName}")]
         public IActionResult Get(string productName)
         {
             try
             {
                 var product = _repository.GetProductByName(productName);
-
-                return Ok(Mapper.Map<IEnumerable<Product>>(product));
-
+                return Ok(Mapper.Map<Product>(product));
             }
             catch (Exception ex)
             {
@@ -74,10 +68,6 @@ namespace Heinbo.Controllers.Api
                 return BadRequest("Error occured");
             }
         }
-
-
     }
-
-
 }
 

@@ -1,54 +1,38 @@
-﻿<!--=== Product Content ===-->
-<div class="container content-md">
-
-    <div class="heading heading-v1 margin-bottom-20">
-        <h2>Népszerű termékeing</h2>
-        <p>A HEINBO Hegesztéstechnikai Kft. kiemelten forgalmazza a lengyelországi RYWAL-RHC cégcsoport kiváló minőségű termékeit.</p>
-    </div>
-    <!--=== Illustration v2 ===-->
-    <div class="illustration-v2 margin-bottom-60" ng-controller="productController">
-        <div class="customNavigation margin-bottom-25">
-            <a class="owl-btn prev rounded-x"><i class="fa fa-angle-left"></i></a>
-            <a class="owl-btn next rounded-x"><i class="fa fa-angle-right"></i></a>
+﻿<div ng-controller="productController">
+    <div class="container content-md">
+        <div class="heading heading-v1 margin-bottom-20">
+            <h2>Népszerű termékeink</h2>
+            <p>A HEINBO Hegesztéstechnikai Kft. kiemelten forgalmazza a lengyelországi RYWAL-RHC cégcsoport kiváló minőségű termékeit.</p>
         </div>
+        <!--=== Illustration v2 ===-->
+        <div class="illustration-v2 margin-bottom-60">
+            <div class="customNavigation margin-bottom-25">
+                <a class="owl-btn prev rounded-x"><i class="fa fa-angle-left"></i></a>
+                <a class="owl-btn next rounded-x"><i class="fa fa-angle-right"></i></a>
+            </div>
 
-        <div ng-show="vm.isBusy" class="text-center"> <i class="fa fa-spinner fa-spin"></i>Töltés...</div>
-        <ul class="list-inline owl-slider">
-            <li class="item" ng-repeat="product in vm.products | limitTo: 6">
-                <div class="product-img">
-                    <a href="shop-ui-inner.html"><img class="full-width img-responsive" ng-src="../img/blog/mostKorong.jpg" alt=""></a>
-                    <a class="product-review" ng-href="#/product/{{product.productName}}">{{product.productName}}</a>
-
-
-
-                    <div class="shop-rgba-red rgba-banner">Akciós</div>
-                </div>
-                <div class="product-description product-description-brd">
-                    <div class="overflow-h margin-bottom-5">
-                        <div class="pull-left">
-
-                            <h4 class="title-price"><a ng-href="#/product/{{product.productName}}">{{product.description}}</a></h4>
-                            <span class="gender text-uppercase">{{product.ProductName}}</span>
-                            <span class="gender">{{product.Category}}</span>
-                        </div>
-
-
-
-                        <div class="product-price">
-                            <span class="title-price">{{product.ProductName}}</span>
+            <div ng-show="vm.isBusy" class="text-center"> <i class="fa fa-spinner fa-spin"></i>Töltés...</div>
+            <ul class="list-inline owl-slider">
+                <li class="item" ng-repeat="product in vm.products | limitTo: 6">
+                    <div class="product-img">
+                        <a ng-href="App/ProductInfo/{{product.productName}}"><img class="img-width-300 img-responsive" ng-src="../img/blog/{{product.productName}}.jpg" alt=""></a>
+                        <a class="product-review" ng-href="App/ProductInfo/{{product.productName}}">{{product.productName}}</a>
+                        <div class="shop-rgba-red rgba-banner">Akcios</div>
+                    </div>
+                    <div class="product-description product-description-brd">
+                        <div class="overflow-h margin-bottom-5">
+                            <div class="pull-left">
+                                <h4 class="title-price"><a ng-href="#/product/{{product.productName}}">{{product.retailPrice}} Ft</a></h4>
+                                <span class="gender text-uppercase">{{product.ProductName}}</span>
+                                <span class="gender">{{product.Category}}</span>
+                            </div>
+                            <div class="product-price">
+                                <span class="title-price">{{product.ProductName}}</span>
+                            </div>
                         </div>
                     </div>
-                   
-                </div>
-            </li>
-
-        </ul>
-
-
-
-
+                </li>
+            </ul>
+        </div>
     </div>
 </div>
-<!--=== End Illustration v2 ===-->
-<!--=== Illustration v3 ===-->
-<!--=== End Sponsors ===-->

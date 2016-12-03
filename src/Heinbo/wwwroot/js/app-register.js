@@ -7,12 +7,7 @@
             controllerAs: "vm",
             templateUrl: "/views/register.html"
         });
-        $routeProvider.when("/login", {
-            controller: "registerController",
-            controllerAs: "vm",
-            templateUrl: "/views/login.html"
-        });
-      
+           
         $routeProvider.otherwise({ redirectTo: "/" });
      
     });

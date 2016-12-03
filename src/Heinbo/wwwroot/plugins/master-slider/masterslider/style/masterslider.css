@@ -3,10 +3,11 @@
  * 	Core css file
  */
 
-.master-slider{
-	position: relative;
-	visibility: hidden;
-	-moz-transform: translate3d(0 , 0 , 0);
+.master-slider {
+    position: relative;
+    visibility: hidden;
+    -moz-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
 }
 
 .master-slider a { 

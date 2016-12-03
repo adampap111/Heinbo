@@ -164,15 +164,18 @@
                         <div class="col-md-4" ng-repeat="product in (responseData.product.slice(((outerIndex*3)),responseData.product.length) | orderBy: 'brand' | limitTo:3 )">
                             <div class="product-img product-img-brd">
 
-                                <div><img class="full-width img-responsive" ng-src="../../img/blog/{{product.productName}}.jpg" alt="s"></div>
-                                <a class="product-review">{{product.productName}}</a>
+                                <div>
+                                    <a ng-href="{{vm.url}}{{product.productName}}"><img class="full-width img-responsive" ng-src="../../img/blog/{{product.productName}}.jpg" alt="s"></a>
+
+                                </div>
+                                <a ng-href="{{vm.url}}{{product.productName}}" class="product-review">{{product.productName}}</a>
                                 <div class="shop-rgba-dark-green rgba-banner">{{product.brand}}</div>
                             </div>
                             <div class="product-description product-description-brd margin-bottom-30">
                                 <div class="overflow-h margin-bottom-5">
                                     <div class="pull-left">
-                                        <h4 class="title-price">{{product.description}}</h4>
-                                        <span class="gender">{{product.size}}</span>
+                                        <!--<h4 class="title-price">{{product.description}}</h4>-->
+                                        <span class="gender">Méret: {{product.size}}</span>
                                     </div>
                                 </div>
                             </div>

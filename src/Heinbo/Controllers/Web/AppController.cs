@@ -16,7 +16,7 @@ namespace Heinbo.Controllers.Web
 {
     public class AppController : Controller
     {
-      
+
         private IConfigurationRoot _config;
         private ISalesRepository _repository;
         private ILogger<AppController> _logger;
@@ -24,7 +24,6 @@ namespace Heinbo.Controllers.Web
         public AppController(IConfigurationRoot config, ISalesRepository repository,
             ILogger<AppController> logger)
         {
-           
             _config = config;
             _repository = repository;
             _logger = logger;
@@ -32,63 +31,30 @@ namespace Heinbo.Controllers.Web
 
         public IActionResult Index()
         {
-           
-                return View();
-         
+            return View();
         }
 
         public IActionResult Product()
         {
-
             return View();
-
         }
+
 
         public IActionResult Register()
         {
-
             return View();
-
-        }
-
-
-        public IActionResult Gepek()
-        {
-
-            return View();
-
         }
 
         public IActionResult ProductInfo()
         {
-
             return View();
-
         }
 
         public IActionResult Login()
         {
-
             return View();
-
         }
 
-
-
-        [Authorize]
-        public IActionResult Trips()
-        {
-            try
-            {
-            //    var data = _repository.GetAllTrips();
-                return View();
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"Failed to get Trips in the index page: {ex.Message}");
-                return Redirect("/error");
-            }
-        }
 
         public IActionResult Contact()
         {
