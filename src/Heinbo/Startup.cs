@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Newtonsoft.Json.Serialization;
+using Heinbo.Services;
 
 namespace Heinbo
 {
@@ -53,6 +54,7 @@ namespace Heinbo
             services.AddApplicationInsightsTelemetry(_config);
             services.AddSingleton(_config);
             services.AddDbContext<SalesContext>();
+       
             services.RegisterServices();
             services.AddMvc();
         }

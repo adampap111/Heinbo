@@ -9,7 +9,7 @@
         vm.errorMessage = "";
         vm.isBusy = true;
         $scope.responseData = [];
-        $scope.limit = 9;
+        $scope.rowLimit = [1,2,3,4];
         $scope.order = "brand";
         $scope.categoryFilter = [];
         $scope.brandFilter = [];
@@ -18,7 +18,7 @@
         var splitPath1 = $location.absUrl().split("App/Product/")[0];
         var splitPath = $location.absUrl().split("App/Product/")[1];
         vm.category = splitPath.split("#/")[0];
-        vm.url = splitPath1 + "App/ProductInfo/";
+        vm.productInfoUrl = splitPath1 + "App/ProductInfo/";
         var url = "/api/product/" + vm.category;
 
         $http.get(url)

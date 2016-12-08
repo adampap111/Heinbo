@@ -39,6 +39,11 @@ namespace Heinbo.Controllers.Web
             return View();
         }
 
+        public IActionResult CartBadge()
+        {
+            return View();
+        }
+
 
         public IActionResult Register()
         {
@@ -46,6 +51,11 @@ namespace Heinbo.Controllers.Web
         }
 
         public IActionResult ProductInfo()
+        {
+            return View();
+        }
+
+        public IActionResult ShoppingCart()
         {
             return View();
         }

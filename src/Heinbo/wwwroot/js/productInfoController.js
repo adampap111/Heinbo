@@ -8,18 +8,18 @@
         var vm = this;
         vm.errorMessage = "";
         vm.isBusy = true;
-        $scope.responseData = [];
-
+       
+        vm.responseData = {};
 
         var splitPath = $location.absUrl().split("App/ProductInfo/")[1];
-
         vm.productName = splitPath.split("#/")[0];
+
         var url = "/api/productInfo/" + vm.productName;
-        var url2 = "/api/product/";
+   
 
         $http.get(url)
           .then(function (response) {
-              angular.copy(response.data, $scope.responseData);
+              angular.copy(response.data, vm.responseData);
 
           }, function (error) {
               vm.errorMessage = "Failed to load stops";
@@ -27,6 +27,21 @@
           .finally(function () {
               vm.isBusy = false;
           });
+
+        vm.addItem = function () {
+            vm.isBusy = true;
+            vm.errorMessage = "";
+            $http.post("/cart/AddToCart", vm.responseData)
+            .then(function (response) {
+                //success
+
+            }, function (error) {
+                //failure
+                vm.errorMessage = error;
+            }).finally(function () {
+                vm.isBusy = false;
+            });
+        };
     }
 
 })();

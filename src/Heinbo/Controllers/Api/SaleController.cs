@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Heinbo.Models;
+using Heinbo.Services;
 
 namespace Heinbo.Controllers.Api
 {
@@ -21,20 +22,6 @@ namespace Heinbo.Controllers.Api
             _logger = logger;
         }
 
-        //[HttpGet("")]
-        //public IActionResult Get()
-        //{
-        //    try
-        //    {
-        //        var product = _repository.GetProductByName("");
-        //          return Ok(Mapper.Map<IEnumerable<Product>>(product.ProductName));
-              
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        _logger.LogError($"Failed to get Trips {ex}");
-        //        return BadRequest("Error occured");
-        //    }
-        //}
+   
     }
 }

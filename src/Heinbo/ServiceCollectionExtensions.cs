@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Heinbo.Models;
+using Heinbo.Services;
 
 namespace Heinbo
 {
@@ -19,6 +20,7 @@ namespace Heinbo
 
 
             services.AddScoped<ISalesRepository, SalesRepository>();
+            services.AddScoped<ICartService, CartService>();
             services.AddIdentity<User, IdentityRole>(config =>
   {
       config.User.RequireUniqueEmail = true;

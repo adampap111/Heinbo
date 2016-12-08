@@ -72,11 +72,15 @@
                         </div>
                         <div class="col-sm-6">
                             <ul class="list-inline right-topbar pull-right">
-                                <li><a href="#">Profil</a></li>
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                                    <li><a href="#">@User.Identity.Name</a></li>
+                                }
+                               
                                 @if (User.Identity.IsAuthenticated)
                                 {
                                     <li>
-                                        <a asp-controller="Auth" asp-action="Logout">Log out</a>
+                                        <a asp-controller="Auth" asp-action="Logout">Kijelentkezés</a>
 
                                     </li>
                                 }
@@ -112,7 +116,12 @@
                             <img id="logo-header" src="~/img/heinboo.png" alt="Logo">
                         </a>
                     </div>
+                    <!-- Shopping Cart -->
+                    <div class="shop-badge badge-icons pull-right">
+                        @await Component.InvokeAsync("CartBadge")
 
+                    </div>
+                    <!-- End Shopping Cart -->
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse navbar-responsive-collapse">
                         <!-- Nav Menu -->
@@ -184,9 +193,7 @@
                                 </ul>
                             </li>
                             <!-- Gépek -->
-                            <!-- Elérhetőségeink -->
-                            <li><a href="../index.html">Elérhetőségeink</a></li>
-                            <!-- Elérhetőségeink -->
+
                         </ul>
                         <!-- End Nav Menu -->
                     </div>
@@ -274,8 +281,8 @@
                     <div class="row">
                         <div class="col-md-6">
                             <p>
-                                2016 &copy; Heinbo. 
-                               
+                                2016 &copy; Heinbo.
+
                             </p>
                         </div>
 

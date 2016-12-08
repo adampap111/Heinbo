@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Heinbo.Models;
 using Heinbo.ViewModels;
+using Heinbo.Services;
 
 namespace Heinbo.Controllers.Api
 {
@@ -30,7 +31,8 @@ namespace Heinbo.Controllers.Api
                 var newUser = Mapper.Map<User>(theUser);
                 //Save to the database
                 await _repository.AddUser(newUser, password);
-                return RedirectToAction("Login", "Auth");
+               
+                return RedirectToAction("Index", "App");
             }
             return BadRequest("failed to save");
         }
