@@ -74,14 +74,11 @@
                             <ul class="list-inline right-topbar pull-right">
                                 @if (User.Identity.IsAuthenticated)
                                 {
-                                    <li><a href="#">@User.Identity.Name</a></li>
-                                }
-                               
-                                @if (User.Identity.IsAuthenticated)
-                                {
+                                    <li>
+                                        <a asp-controller="App" asp-action="Profile">@User.Identity.Name</a>
+                                    </li>
                                     <li>
                                         <a asp-controller="Auth" asp-action="Logout">Kijelentkezés</a>
-
                                     </li>
                                 }
                                 else
@@ -94,6 +91,8 @@
 
                                 <li><i class="search fa fa-search search-button"></i></li>
                             </ul>
+
+
 
                         </div>
                     </div>

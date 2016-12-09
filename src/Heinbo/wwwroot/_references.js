@@ -21,6 +21,7 @@
 /// <reference path="js/productController.js" />
 /// <reference path="js/productInfoController.js" />
 /// <reference path="js/productListController.js" />
+/// <reference path="js/profilecontroller.js" />
 /// <reference path="js/registerController.js" />
 /// <reference path="js/shop.app.js" />
 /// <reference path="js/shoppingcartcontroller.js" />
