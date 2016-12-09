@@ -2,6 +2,7 @@
 /// <reference path="js/app-product.js" />
 /// <reference path="js/app-productinfo.js" />
 /// <reference path="js/app-productlist.js" />
+/// <reference path="js/app-profilepage.js" />
 /// <reference path="js/app-register.js" />
 /// <reference path="js/app-shoppingcart.js" />
 /// <reference path="js/custom.js" />
