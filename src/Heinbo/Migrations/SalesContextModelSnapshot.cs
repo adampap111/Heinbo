@@ -68,6 +68,8 @@ namespace Heinbo.Migrations
 
                     b.Property<int>("AccessFailedCount");
 
+                    b.Property<string>("City");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 

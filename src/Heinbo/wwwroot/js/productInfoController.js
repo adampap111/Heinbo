@@ -7,8 +7,8 @@
     function productInfoController($http, $location, $scope) {
         var vm = this;
         vm.errorMessage = "";
-        vm.isBusy = true;
-       
+        vm.isBusy = true;      
+
         vm.responseData = {};
 
         var splitPath = $location.absUrl().split("App/ProductInfo/")[1];

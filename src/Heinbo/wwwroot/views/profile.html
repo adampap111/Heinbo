@@ -1,57 +1,57 @@
-﻿<div class="container">
+﻿<div class="container" ng-controller="profileController">
     <!--Reg Block-->
     <div class="reg-block">
-        <form novalidate name="newUser" ng-submit="vm.addUser()">
+        <form novalidate name="newUser" ng-submit="">
             <div class="reg-block-header">
                 <h2>Profil</h2>
             </div>
             
 
             <div class="panel">
-                <div class="input-group margin-bottom-20" ng-class="{ }">
+                <div class="input-group margin-bottom-20">
                     <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-                    <input type="text" name="FirstName" class="form-control" placeholder="First name" ng-model="">
+                    <input type="text" name="FirstName" class="form-control" placeholder="Keresztnév" ng-model="" required ng-minlength="5">
                 </div>
-                <div class="input-group margin-bottom-20" ng-class="{ }">
+                <div class="input-group margin-bottom-20">
                     <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-                    <input type="text" name="LastName" class="form-control" placeholder="Last name" ng-model="">
+                    <input type="text" name="LastName" class="form-control" placeholder="Vezetéknév" ng-model="" required ng-minlength="5">
                 </div>
             </div>
             <div class="panel">
-                <div class="input-group margin-bottom-20" ng-class="{ 'has-error' : newUser.Email.$invalid && !newUser.Email.$pristine }">
-                    <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-                    <input type="email" name="Email" class="form-control" placeholder="Email" ng-model="vm.newUser.Email" required>
+                <div class="input-group margin-bottom-20">
+                    <span class="input-group-addon"><i class="fa fa-at"></i></span>
+                    <input type="email" name="Email" class="form-control" placeholder="Email" required>
                 </div>
-                <div class="input-group margin-bottom-20" ng-class="{ }">
+                <div class="input-group margin-bottom-20" >
                     <span class="input-group-addon"><i class="fa fa-phone"></i></span>
-                    <input type="tel" name="Phone" class="form-control" placeholder="Phone number" ng-model="">
+                    <input type="tel" name="Phone" class="form-control" placeholder="Telefonszám">
                 </div>
             </div>
             <div class="panel">
-                <div class="input-group margin-bottom-20" ng-class="{ }">
+                <div class="input-group margin-bottom-20">
+                    <span class="input-group-addon"><i class="fa fa-inbox"></i></span>
+                    <input type="text" name="Street" class="form-control" placeholder="Utca" ng-model="" style="margin-right:60px;">
                     <span class="input-group-addon"><i class="fa fa-gavel"></i></span>
-                    <input type="text" name="Street" class="form-control" placeholder="Street" ng-model="">
-                    <span class="input-group-addon"><i class="fa fa-gavel"></i></span>
-                    <input type="text" name="StreetNr" class="form-control" placeholder="Street number" ng-model="">
+                    <input type="text" name="StreetNr" class="form-control" placeholder="h.sz.">
                 </div>
-                <div class="input-group margin-bottom-20" ng-class="{ }">
+                <div class="input-group margin-bottom-20">
                     <span class="input-group-addon"><i class="fa fa-gavel"></i></span>
-                    <input type="text" name="Zip" class="form-control" placeholder="Zip code" ng-model="">
+                    <input type="text" name="City" class="form-control" placeholder="Város"  style="margin-right:60px;">
                     <span class="input-group-addon"><i class="fa fa-gavel"></i></span>
-                    <input type="text" name="City" class="form-control" placeholder="City" ng-model="">
+                    <input type="text" name="Zip" class="form-control" placeholder="irsz."> 
                 </div>
             </div>
             <div class="panel">
                 <div class="input-group margin-bottom-20" ng-class="{ 'has-error' : newUser.Password.$invalid && !newUser.Password.$pristine }">
                     <span class="input-group-addon"><i class="fa fa-lock"></i></span>
-                    <input type="password" name="Password" class="form-control" placeholder="Password" ng-model="vm.newUser.Password" required ng-minlength="4">
+                    <input type="password" name="Password" class="form-control" placeholder="Jelszó" ng-model="vm.newUser.Password" required ng-minlength="4">
                 </div>
                 <div ng-show="(newUser.Password.$viewValue) != (newUser.Cpassword.$viewValue)" class="text-warning">
                     Nem egyezik a jelszó!
                 </div>
                 <div class="input-group margin-bottom-30" ng-class="{ 'has-error' : newUser.Cpassword.$invalid && !newUser.Cpassword.$pristine }">
                     <span class="input-group-addon"><i class="fa fa-key"></i></span>
-                    <input type="password" name="Cpassword" class="form-control" placeholder="Confirm Password" ng-model="vm.newUser.Cpassword" required ng-minlength="4">
+                    <input type="password" name="Cpassword" class="form-control" placeholder="Jelszó megerősítése" ng-model="vm.newUser.Cpassword" required ng-minlength="4">
                 </div>
             </div>
 

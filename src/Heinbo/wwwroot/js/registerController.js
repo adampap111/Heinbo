@@ -13,7 +13,7 @@
         vm.isBusy = true;
 
         $scope.Index = function () {
-            $location.path("/Auth/Login")
+            $location.path("/Auth/Login");
         };
 
 
