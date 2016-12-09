@@ -9,6 +9,7 @@
             controllerAs: "vm",
             templateUrl: "/views/productInfo.html"
         });
+       
         
         $routeProvider.otherwise({ redirectTo: "/" });
       
