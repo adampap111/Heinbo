@@ -1,0 +1,67 @@
+﻿<div class="container">
+    <!--Reg Block-->
+    <div class="reg-block">
+        <form novalidate name="newUser" ng-submit="vm.addUser()">
+            <div class="reg-block-header">
+                <h2>Profil</h2>
+            </div>
+            
+
+            <div class="panel">
+                <div class="input-group margin-bottom-20" ng-class="{ }">
+                    <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                    <input type="text" name="FirstName" class="form-control" placeholder="First name" ng-model="">
+                </div>
+                <div class="input-group margin-bottom-20" ng-class="{ }">
+                    <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                    <input type="text" name="LastName" class="form-control" placeholder="Last name" ng-model="">
+                </div>
+            </div>
+            <div class="panel">
+                <div class="input-group margin-bottom-20" ng-class="{ 'has-error' : newUser.Email.$invalid && !newUser.Email.$pristine }">
+                    <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                    <input type="email" name="Email" class="form-control" placeholder="Email" ng-model="vm.newUser.Email" required>
+                </div>
+                <div class="input-group margin-bottom-20" ng-class="{ }">
+                    <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+                    <input type="tel" name="Phone" class="form-control" placeholder="Phone number" ng-model="">
+                </div>
+            </div>
+            <div class="panel">
+                <div class="input-group margin-bottom-20" ng-class="{ }">
+                    <span class="input-group-addon"><i class="fa fa-gavel"></i></span>
+                    <input type="text" name="Street" class="form-control" placeholder="Street" ng-model="">
+                    <span class="input-group-addon"><i class="fa fa-gavel"></i></span>
+                    <input type="text" name="StreetNr" class="form-control" placeholder="Street number" ng-model="">
+                </div>
+                <div class="input-group margin-bottom-20" ng-class="{ }">
+                    <span class="input-group-addon"><i class="fa fa-gavel"></i></span>
+                    <input type="text" name="Zip" class="form-control" placeholder="Zip code" ng-model="">
+                    <span class="input-group-addon"><i class="fa fa-gavel"></i></span>
+                    <input type="text" name="City" class="form-control" placeholder="City" ng-model="">
+                </div>
+            </div>
+            <div class="panel">
+                <div class="input-group margin-bottom-20" ng-class="{ 'has-error' : newUser.Password.$invalid && !newUser.Password.$pristine }">
+                    <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                    <input type="password" name="Password" class="form-control" placeholder="Password" ng-model="vm.newUser.Password" required ng-minlength="4">
+                </div>
+                <div ng-show="(newUser.Password.$viewValue) != (newUser.Cpassword.$viewValue)" class="text-warning">
+                    Nem egyezik a jelszó!
+                </div>
+                <div class="input-group margin-bottom-30" ng-class="{ 'has-error' : newUser.Cpassword.$invalid && !newUser.Cpassword.$pristine }">
+                    <span class="input-group-addon"><i class="fa fa-key"></i></span>
+                    <input type="password" name="Cpassword" class="form-control" placeholder="Confirm Password" ng-model="vm.newUser.Cpassword" required ng-minlength="4">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-10 col-md-offset-1">
+                    <button type="submit" class="btn btn-u btn-block" ng-click="Index()" ng-disabled="newUser.$invalid  || (newUser.Password.$viewValue) != (newUser.Cpassword.$viewValue)">Update</button>
+                </div>
+
+            </div>
+        </form>
+    </div>
+    <!--End Reg Block-->
+</div>

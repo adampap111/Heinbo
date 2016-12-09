@@ -50,6 +50,11 @@ namespace Heinbo.Controllers.Web
             return View();
         }
 
+        public IActionResult Profile()
+        {
+            return View();
+        }
+
         public IActionResult ProductInfo()
         {
             return View();

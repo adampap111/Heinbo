@@ -98,10 +98,16 @@ namespace Heinbo.Migrations
 
                     b.Property<string>("SecurityStamp");
 
+                    b.Property<string>("Street");
+
+                    b.Property<int>("StreetNumber");
+
                     b.Property<bool>("TwoFactorEnabled");
 
                     b.Property<string>("UserName")
                         .HasAnnotation("MaxLength", 256);
+
+                    b.Property<int>("Zip");
 
                     b.HasKey("Id");
 
