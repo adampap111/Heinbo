@@ -6,6 +6,17 @@ namespace Heinbo.Models
 {
     public class CartItem
     {
+        public CartItem(string userId, int productID, int quantity)
+        {
+            UserId = userId;
+            ProductID = productID;
+            Quantity = quantity;
+        }
+
+        public CartItem()
+        {
+
+        }
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
@@ -17,6 +28,12 @@ namespace Heinbo.Models
         public virtual Product Product { get; set; }
 
         public int Quantity { get; set; }
+
+        public static CartItem Create(string userId, int productID, int quantity)
+        {
+            return new CartItem(userId, productID, quantity);
+        }
     }
 
+  
 }

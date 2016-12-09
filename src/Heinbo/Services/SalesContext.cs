@@ -19,9 +19,9 @@ namespace Heinbo.Services
         {
             _config = config;
         }
+    
 
-
-        public  DbSet<Product> Product { get; set; }
+        public DbSet<Product> Product { get; set; }
         public DbSet<CartItem> CartItem { get; set; }
         public new DbSet<User> Users { get; set; }
 
@@ -30,7 +30,7 @@ namespace Heinbo.Services
             base.OnConfiguring(optionsBuilder);
 
             optionsBuilder.UseSqlServer(_config["ConnectionStrings:HeinboContextConnectionTest"]);
-     
+
         }
 
     }

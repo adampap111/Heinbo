@@ -29,6 +29,10 @@ namespace Heinbo.Controllers.Api
             _userManager = userManager;
             _logger = logger;
         }
+        public CartController()
+        {
+
+        }
 
 
         [HttpPost("AddToCart/")]
