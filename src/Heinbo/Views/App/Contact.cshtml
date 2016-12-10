@@ -1,13 +1,24 @@
-@model Heinbo.ViewModels.ProductViewModel
 @{
-    ViewBag.Title = "Contact Page";
+    Layout = "_Layout";
 }
+
+@{
+    ViewBag.Title = "Contact";
+}
+
 @section Scripts {
-<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
-<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
-    }
-<div class="row">
-    <div class="col-md-6 col-md-offset-3">
-        <h2>Contact me</h2>
-     </div>
+    <script type="text/javascript" src="~/lib/angular/angular.min.js"></script>
+    <script src="~/lib/angular-route/angular-route.min.js"></script>
+    <script src="~/js/app-contactPage.js"></script>
+    <script src="~/js/contactPageController.js"></script>
+
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <!-- CSS Page Style -->
+    <link rel="stylesheet" href="~/css/pages/page_log_reg_v2.css">
+}
+
+<div class="row" data-ng-app="app-contactPage">
+    <div ng-view></div>
+
 </div>
