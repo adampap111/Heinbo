@@ -121,6 +121,29 @@ namespace Heinbo.Services
             return product;
         }
 
-
+        public async Task UpdateUser(User user)
+        {
+            var contextUser = _httpContext.User;
+            var result = await _userManager.GetUserAsync(contextUser);
+            if (result != null)
+            {
+                result.FirstName = user.FirstName;
+                result.LastName = user.LastName;
+                result.PhoneNumber = user.PhoneNumber;
+                result.Email = user.Email;
+                result.Street = user.Street;
+                result.StreetNumber = user.StreetNumber;
+                result.City = user.City;
+                result.Zip = user.Zip;
+                try
+                {
+                    await SaveChangesAsync();
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError("The user could not be updated" + ex);
+                }  
+            }
+        }
     }
 }

@@ -8,6 +8,6 @@ namespace Heinbo.Services
 {
     public interface IMailService
     {
-        void SendMail(string to, string from, string subject, string body);
+        Task SendEmailAsync(string to, string from, string subject, string message, string sender);
     }
 }

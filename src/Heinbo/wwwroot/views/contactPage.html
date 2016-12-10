@@ -1,0 +1,40 @@
+﻿<div class="container">
+    <div class="reg-block" style="border-color:#4765A0">
+        <form novalidate name="contactByMail">
+            <div class="reg-block-header">
+                <h2>Kapcsolat</h2>
+                <div class="panel">
+                    <div>
+                        <span ng-show="contactByMail.subject.$error.required" class="text-warning">Tárgy kötelező.</span>
+                    </div>
+                    <div class="input-group margin-bottom-20" ng-class="{ 'has-error' : contactByMail.subject.$invalid && !contactByMail.subject.$pristine }">
+                        <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                        <input type="text" name="subject" class="form-control" placeholder="Tárgy" required>
+                    </div>
+                    <div>
+                        <span ng-show="contactByMail.name.$error.required" class="text-warning">Név kötelező.</span>
+                    </div>
+                    <div class="input-group margin-bottom-20" ng-class="{ 'has-error' : contactByMail.name.$invalid && !contactByMail.name.$pristine }">
+                        <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                        <input type="text" name="name" class="form-control" placeholder="Küldő neve" required>
+                    </div>
+                    <div>
+                        <span ng-show="contactByMail.email.$error.required" class="text-warning">Email cím kötelező.</span>
+                        <span ng-show="contactByMail.email.$invalid && !contactByMail.email.$pristine && !contactByMail.email.$error.required" a class="text-warning">Az email formátuma: példa@példa.com</span>
+                    </div>
+                    <div class="input-group margin-bottom-20" ng-class="{ 'has-error' : contactByMail.email.$invalid && !contactByMail.email.$pristine }">
+                        <span class="input-group-addon"><i class="fa fa-at"></i></span>
+                        <input type="email" name="email" class="form-control" placeholder="Email" required>
+                    </div>
+                    <div>
+                        <span ng-show="contactByMail.message.$error.required" class="text-warning">Email cím kötelező.</span>
+                        <span ng-show="contactByMail.message.$invalid" a class="text-warning">A törzsszöveg minimum 10 karakterből áll.</span>
+                    </div>
+                    <div class="input-group margin-bottom-20" ng-class="{ 'has-error' : contactByMail.message.$invalid && !contactByMail.message.$pristine }">
+                        <textarea type="text" name="message" class="form-control" placeholder="Törzsszöveg" required ng-minlength="10"></textarea>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

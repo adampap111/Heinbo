@@ -28,17 +28,31 @@ namespace Heinbo.Controllers.Api
         }
 
         [HttpGet("profile")]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> Get ()
         {
             try
             {
                 var user = await _userManager.GetUserAsync(User);
-                return Ok(Mapper.Map<User>(user));
+                return Ok(Mapper.Map<ProfileViewModel>(user));
             }
             catch (Exception ex)
             {
                 _logger.LogError($"Failed to get user {ex}");
                 return BadRequest("Error occured");
+            }
+        }
+
+        [HttpPost("profile")]
+        public async Task<IActionResult> Post ([FromBody]ProfileViewModel user)
+        {
+            if (ModelState.IsValid)
+            {
+                var updateUser = Mapper.Map<User>(user);
+                await _repository.UpdateUser(updateUser);
+                return Ok();
+            } else
+            {
+                return BadRequest("failed to update user");
             }
         }
     }
