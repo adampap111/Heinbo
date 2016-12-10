@@ -19,7 +19,8 @@ namespace Heinbo.Services
         {
             _config = config;
         }
-    
+
+       
 
         public DbSet<Product> Product { get; set; }
         public DbSet<CartItem> CartItem { get; set; }

@@ -15,33 +15,38 @@ namespace test
         public ControllerTests(SalesContext context)
         {
             _context = context;
-            var controller = new CartController();
-            
-        }
 
 
-        public void CanGetWeatherEvents()
-        {
-            //_context = CreateAndSeedContext();
-            //using (var controller = new CartService(_context, null))
-            //{
-            //    var results = controller.List();
-            //    Assert.Equal(7, results.Count());
-            //}
         }
+
        
-      
+        public void CanGetWeaherEtvents()
+        {
+            _context = CreateAndSeedContext();
+            try
+            {
+                var controller = new CartService(_context, null);
+                var results = controller.GetCartItems("adwa33dda");
+                Object.Equals(7, results.Count());
+            }
+            finally
+            {
+            }
+        }
+
+
 
         private SalesContext CreateAndSeedContext()
         {
             var optionsBuilder = new DbContextOptionsBuilder<SalesContext>();
             optionsBuilder.UseInMemoryDatabase();
 
-            _context.Database.EnsureDeleted();
-            _context.Database.EnsureCreated();
-            _context.CartItem.AddRange(BuildCartItems());
-            _context.SaveChanges();
-            return _context;
+            var context = new SalesContext(optionsBuilder.Options);
+            context.Database.EnsureDeleted();
+            context.Database.EnsureCreated();
+            context.CartItem.AddRange(BuildCartItems());
+            context.SaveChanges();
+            return context;
 
         }
         private List<CartItem> BuildCartItems()
@@ -51,9 +56,9 @@ namespace test
                 CartItem.Create("adwa33dda",1,2),
                 CartItem.Create("cyscysa33dda",4,21),
                 CartItem.Create("vdfvfxvdda",5,10),
-                CartItem.Create("r23fwsda",4,200),
+                CartItem.Create("adwa33dda",4,200),
                 CartItem.Create("cyscezdda",2,4),
-                CartItem.Create("abrnerdda",3,7),
+                CartItem.Create("adwa33dda",3,7),
                 CartItem.Create("543gsvsdda",2,88)
             };
             return cartItems;

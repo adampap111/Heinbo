@@ -16,10 +16,10 @@ namespace Heinbo.Controllers.Api
     [Route("cart/")]
     public class CartController : Controller
     {
-
+        private ISalesRepository _repository;
         private readonly ICartService _cartService;
         private UserManager<User> _userManager;
-        private ISalesRepository _repository;
+
          private ILogger<CartController> _logger;
 
         public CartController(UserManager<User> userManager, ISalesRepository repository, ICartService cartService, ILogger<CartController> logger)
@@ -29,10 +29,7 @@ namespace Heinbo.Controllers.Api
             _userManager = userManager;
             _logger = logger;
         }
-        public CartController()
-        {
-
-        }
+     
 
 
         [HttpPost("AddToCart/")]

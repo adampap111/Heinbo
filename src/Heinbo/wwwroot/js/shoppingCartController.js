@@ -6,8 +6,8 @@
 
     function shoppingCartController($http, $scope) {
         var vm = this;
-        vm.cartItems = [];
-      
+        $scope.cartItems = [];
+        vm.total = 0;
         vm.errorMessage = "";
         vm.isBusy = true;
         var url = "/cart/";
@@ -15,7 +15,7 @@
         $http.get(url)
         .then(function (response) {
             //success
-            angular.copy(response.data, vm.cartItems);
+            angular.copy(response.data, $scope.cartItems);
 
         }, function (error) {
             //failure
@@ -29,7 +29,7 @@
         vm.removeItem = function (id) {
             vm.isBusy = true;
             vm.errorMessage = "";
-            $http.post("/cart/RemoveFromCart", vm.cartItems[id])
+            $http.post("/cart/RemoveFromCart", $scope.cartItems[id])
             .then(function (response) {
                 //success
 
@@ -39,6 +39,20 @@
             }).finally(function () {
                 vm.isBusy = false;
             });
+        };
+
+        $scope.addition = function (i) {
+            $scope.cartItems[i].quantity = $scope.cartItems[i].quantity + 1;
+        };
+        $scope.substract = function (i) {
+            if ($scope.cartItems[i].quantity < 2) {
+
+            } else {
+                $scope.cartItems[i].quantity = $scope.cartItems[i].quantity - 1;
+            }
+        };
+        $scope.calculateTotal = function (i) {
+            vm.total += 1;
         };
 
     }
