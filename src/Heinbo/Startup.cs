@@ -68,6 +68,7 @@ namespace Heinbo
             {
                 config.CreateMap<UserViewModel, User>().ReverseMap();
                 config.CreateMap<ProductViewModel, Product>().ReverseMap();
+                config.CreateMap<ProfileViewModel, User>().ReverseMap();
             }
           );
 

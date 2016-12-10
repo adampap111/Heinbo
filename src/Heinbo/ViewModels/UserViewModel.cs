@@ -15,11 +15,6 @@ namespace Heinbo.ViewModels
         [Required]
         [EmailAddress]
         public string Email { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public int Zip { get; set; }
-        public string Street { get; set; }
-        public int StreetNumber { get; set; }
-        public string City { get; set; }
+       
     }
 }

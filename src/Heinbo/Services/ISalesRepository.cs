@@ -15,6 +15,7 @@ namespace Heinbo.Services
         //user
         Task<User> GetCurrentUser();
         Task AddUser(User user, string password);
+        Task UpdateUser(User user);
         //both
         Task<bool> SaveChangesAsync();
        
