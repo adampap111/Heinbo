@@ -4,11 +4,13 @@
     angular.module("app-profilePage")
         .controller("profilePageController", profilePageController);
 
-    function profilePageController($http, $location, $scope) {
+    function profilePageController($http, $scope, $window) {
         var vm = this;
         vm.errorMessage = "";
         vm.isBusy = true;
         vm.user = [];
+        vm.updatedNotifier = false;
+        vm.errorNotifier = false;
 
         vm.responseData = {};
      
@@ -33,12 +35,18 @@
             .then(function (response) {
                 //Success
                 vm.user.push(response.data);
-
+                vm.updatedNotifier = true;
+                vm.errorNotifier = false;
+                $window.scrollTo(0, angular.element(vm.updatedNotifier).offsetTop);
             }, function (error) {
                 //Failure
                 vm.errorMessage = "Failed to update the user" + error;
+                vm.updatedNotifier = false;
+                vm.errorNotifier = true;
+                $window.scrollTo(0, angular.element(vm.errorNotifier).offsetTop);
             }).finally(function () {
                 vm.isBusy = false;
+                
             });
         };
     }
