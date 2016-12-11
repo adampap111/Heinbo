@@ -2,9 +2,9 @@
 (function () {
     "use strict";
     angular.module("app-shoppingCart")
-    .controller("shoppingCartController", shoppingCartController);
+    .controller("shoppingCartSubmitController", shoppingCartSubmitController);
 
-    function shoppingCartController($http, $scope) {
+    function shoppingCartSubmitController($http, $scope) {
         var vm = this;
         $scope.cartItems = [];
         $scope.total = 0;

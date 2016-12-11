@@ -48,7 +48,7 @@
                                         <td>{{cartItem.product.price}} Ft</td>
                                         <td>
                                             <button type='button' class="quantity-button" name='subtract' ng-click="substract($index)" value='-'>-</button>
-                                            <input class="quantity-field" name='qty1' value="{{cartItem.quantity}}" id='qty1'/>
+                                            <input type="text" class="quantity-field" name='qty1' ng-model="cartItem.quantity" readonly/>
                                             <button type='button' class="quantity-button" name='add' ng-click="addition($index)" value='+'>+</button>
                                         </td>
                                         <td class="shop-red">{{cartItem.product.price * cartItem.quantity}}</td>
@@ -58,12 +58,23 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        {{total}}
+                                       
                                     </tr>
-
+                                   
                                 </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td> </td>
+                                        <td> </td>
+                                        <th align="justify">Összesen</th>
+                                        <td  align="center">{{total}} Ft</td>
+                                    </tr>
+                                   
+                                </tfoot>
+                              
                             </table>
                         </div>
+                        
                     </section>
                 </div>
             </form>

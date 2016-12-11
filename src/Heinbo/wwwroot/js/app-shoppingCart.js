@@ -8,6 +8,13 @@
             templateUrl: "/views/shoppingCart.html"
         });
 
+        $routeProvider
+              .when("/submit/", {
+                  controller: "shoppingCartSubmitController",
+                  controllerAs: "vm",
+                  templateUrl: "/views/shoppingCartSubmitController.html"
+              });
+
         $routeProvider.otherwise({ redirectTo: "/" });
 
     });

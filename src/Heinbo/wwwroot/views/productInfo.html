@@ -9,8 +9,8 @@
                 <div class="container">
                     <ul class="breadcrumb-v5">
                         <li><a href="index.html"><i class="fa fa-home"></i></a></li>
-                        <li><a href="#">Termékek {{vm.numer}}</a></li>
-                        <li class="active">{{vm.responseData.productName}}</li>
+                        <li><a href="#">Termékek</a></li>
+                        <li class="active">{{responseData.productName}}</li>
                     </ul>
                 </div>
                 <!-- End Breadcrumbs v5 -->
@@ -22,8 +22,8 @@
                                 <div class="master-slider ms-skin-default" id="masterslider">
                                     <div class="ms-slide">
                                         <!--<img class="ms-brd" ng-src="../../img/blank.gif" data-src="~/img/blog/28.jpg" alt="lorem ipsum dolor sit">-->
-                                        <!--<EREDETI NEM MŰKÖDIK img class="ms-thumb" ng-src="../../img/blog/{{vm.responseData.productName}}.jpg" alt="thumb">-->
-                                        <img class="full-width img-responsive" ng-src="../../img/blog/{{vm.responseData.productName}}.jpg" alt="thumb">
+                                        <!--<EREDETI NEM MŰKÖDIK img class="ms-thumb" ng-src="../../img/blog/{{responseData.productName}}.jpg" alt="thumb">-->
+                                        <img class="full-width img-responsive" ng-src="../../img/blog/{{responseData.productName}}.jpg" alt="thumb">
                                     </div>
                                     <!--<div class="ms-slide">
                                         <img ng-src="../../img/blank.gif" data-src="~/img/blog/28.jpg" alt="lorem ipsum dolor sit">
@@ -38,10 +38,10 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <form ng-submit="vm.addItem()">
+                            <form ng-submit="addItem()">
                                 <div class="shop-product-heading">
 
-                                    <h2>{{vm.responseData.productName}}</h2>
+                                    <h2>{{responseData.productName}}</h2>
                                     <ul class="list-inline shop-product-social">
                                         <li><a href="#"><i class="fa fa-facebook"></i></a></li>
                                         <li><a href="#"><i class="fa fa-twitter"></i></a></li>
@@ -61,15 +61,15 @@
                                 </ul><!--/end shop product ratings-->
                                 <p>{{responseData.description}}.</p><br>
                                 <ul class="list-inline shop-product-prices margin-bottom-30">
-                                    <li class="shop-red">{{vm.responseData.price}} Ft</li>
-                                    <li class="line-through">{{vm.responseData.price * 1.5}} Ft</li>
+                                    <li class="shop-red">{{responseData.price}} Ft</li>
+                                    <li class="line-through">{{responseData.price * 1.5}} Ft</li>
                                     <li><small class="shop-bg-red time-day-left">Még 4 napig</small></li>
                                 </ul><!--/end shop product prices-->
                                 <h3 class="shop-product-title">Méret</h3>
                                 <ul class="list-inline product-size margin-bottom-30">
                                     <li>
                                         <input type="radio" id="size-1" name="size">
-                                        <label for="size-1">{{vm.responseData.size}}</label>
+                                        <label for="size-1">{{responseData.size}}</label>
                                     </li>
 
                                 </ul><!--/end product size-->
@@ -77,14 +77,13 @@
                                 <h3 class="shop-product-title">Mennyiség</h3>
                                 <div class="margin-bottom-40">
                                     <form name="f1" class="product-quantity sm-margin-bottom-20">
-                                        <button type='button' class="quantity-button" name='subtract' onclick='javascript: document.getElementById("qty").value--;' value='-'>-</button>
-                                        <input type='number' class="quantity-field" name='qty' id='qty'  value="1" ng-model="vm.responseData.Quantity" />
-                                        <button type='button' class="quantity-button" name='add' onclick='javascript: document.getElementById("qty").value++;' value='+'>+</button>
-
+                                        <button type='button' class="quantity-button" name='subtract' ng-click="substract()" value='-'>-</button>
+                                        <input class="quantity-field" name='qty1'  value="{{quantity}}" id='qty1' readonly/>
+                                        <button type='button' class="quantity-button" name='add' ng-click="addition()" value='+'>+</button>
                                     </form>
 
-                                    <button type="submit" class="btn btn-u btn-u-sea-shop btn-u-lg" >Kosárba rakom</button>
-                                  
+                                    <button type="submit" class="btn btn-u btn-u-sea-shop btn-u-lg">Kosárba rakom</button>
+
 
                                 </div><!--/end product quantity-->
                             </form>
@@ -95,7 +94,7 @@
                                     <a href="#">Összehasonlítás</a>
                                 </li>
                             </ul>
-                            <p class="wishlist-category"><strong>Kategória:</strong> <a href="{{vm.urlCategory}}{{vm.responseData.category}}">{{vm.responseData.category}}</a> </p>
+                            <p class="wishlist-category"><strong>Kategória:</strong> <a href="{{vm.urlCategory}}{{responseData.category}}">{{responseData.category}}</a> </p>
                         </div>
                     </div><!--/end row-->
                 </div>
