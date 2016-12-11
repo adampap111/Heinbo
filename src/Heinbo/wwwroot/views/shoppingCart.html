@@ -37,7 +37,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr ng-repeat="cartItem in cartItems"  ng-init='calculateTotal($index)'>
+                                    <tr ng-repeat="cartItem in cartItems" ng-init='calculateTotal($index)'>
                                         <td class="product-in-table">
                                             <img class="img-responsive" ng-src="../../img/blog/{{cartItem.product.productName}}.jpg" alt="">
                                             <div class="product-it-in">
@@ -48,14 +48,14 @@
                                         <td>{{cartItem.product.price}} Ft</td>
                                         <td>
                                             <button type='button' class="quantity-button" name='subtract' ng-click="substract($index)" value='-'>-</button>
-                                            <input type="text" class="quantity-field" name='qty1' ng-model="cartItem.quantity" readonly/>
+                                            <input type="text" class="quantity-field" name='qty1' ng-model="cartItem.quantity" readonly />
                                             <button type='button' class="quantity-button" name='add' ng-click="addition($index)" value='+'>+</button>
                                         </td>
-                                        <td class="shop-red">{{cartItem.product.price * cartItem.quantity}} Ft</td>                                    
+                                        <td class="shop-red">{{cartItem.product.price * cartItem.quantity}} Ft</td>
                                         <td>
                                             <button type="button" ng-click="vm.removeItem($index)" class="close"><span>&times;</span><span class="sr-only">Close</span></button>
                                         </td>
-                                    </tr>                                   
+                                    </tr>
                                 </tbody>
                                 <tfoot class="color-dark font-bold" style="font-size:16px;text-transform:uppercase">
                                     <tr>
@@ -65,13 +65,13 @@
                                         <td></td>
                                     </tr>
                                     <tr>
-                                        <td colspan="3"></td> 
-                                        <td><button type="submit" class="btn btn-primary bg-color-dark-blue" style="width:100%;text-transform:uppercase">Tovább</button></td>
+                                        <td colspan="3"></td>
+                                        <td><a ng-href="#/submit/" class="btn btn-primary bg-color-dark-blue" style="width:100%;text-transform:uppercase">Tovább</a></td>
                                         <td></td>
                                     </tr>
                                 </tfoot>
                             </table>
-                        </div>   
+                        </div>
                     </section>
                 </div>
             </form>
