@@ -298,6 +298,11 @@
 <div class="container">
     <!--=== Product Service ===-->
     <div class="row margin-bottom-60">
+    <style type="text/css">
+    a:hover {
+        text-decoration: none;
+    }
+    </style>
         <div class="col-md-4 product-service md-margin-bottom-30">
             <div class="product-service-heading">
                 <i class="fa fa-truck"></i>
@@ -309,13 +314,15 @@
             </div>
         </div>
         <div class="col-md-4 product-service md-margin-bottom-30">
-            <div class="product-service-heading">
-                <i class="icon-earphones-alt"></i>
-            </div>
+            <a asp-controller="App" asp-action="Contact">
+                <div class="product-service-heading">
+                    <i class="icon-earphones-alt"></i>
+                </div>
+            </a>            
             <div class="product-service-in">
                 <h3>Kapcsolattartás</h3>
                 <p>Cégünk hétfőtől vasárnapig x-y óráig hívható a Z számon</p>
-                <a asp-controller="App" asp-action="Contact">+Elérhetőségeink</a>
+                <a asp-controller="App" asp-action="Contact">Elérhetőségeink</a>
             </div>
         </div>
         <div class="col-md-4 product-service">
