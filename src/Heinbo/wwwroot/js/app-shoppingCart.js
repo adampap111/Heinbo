@@ -12,7 +12,7 @@
               .when("/submit/", {
                   controller: "shoppingCartSubmitController",
                   controllerAs: "vm",
-                  templateUrl: "/views/shoppingCartSubmitController.html"
+                  templateUrl: "/views/shoppingCartSubmit.html"
               });
 
         $routeProvider.otherwise({ redirectTo: "/" });
