@@ -30,8 +30,15 @@
                         <span ng-show="contactByMail.message.$error.required" class="text-warning">Email cím kötelező.</span>
                         <span ng-show="contactByMail.message.$invalid" a class="text-warning">A törzsszöveg minimum 10 karakterből áll.</span>
                     </div>
-                    <div class="input-group margin-bottom-20" ng-class="{ 'has-error' : contactByMail.message.$invalid && !contactByMail.message.$pristine }">
-                        <textarea type="text" name="message" class="form-control" placeholder="Törzsszöveg" required ng-minlength="10"></textarea>
+                    <div class="input-group margin-bottom-20" style="width:100%" ng-class="{ 'has-error' : contactByMail.message.$invalid && !contactByMail.message.$pristine }">
+                        <span class="input-group-addon"><i class="fa fa-at"></i></span>
+                        <textarea type="text" name="message" style="width:100%" class="form-control" placeholder="Törzsszöveg" required ng-minlength="10"></textarea>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-10 col-md-offset-1">
+                            <button type="submit" class="btn btn-u btn-block bg-color-dark-blue">Küldés</button>
+                        </div>
+
                     </div>
                 </div>
             </div>
