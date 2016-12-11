@@ -3,7 +3,7 @@
     <!--=== Content Part ===-->
      <div class="container">
         <!--Reg Block-->
-        <div class="reg-block">
+        <div class="reg-block"  style="border-color:#4765A0">
             <form novalidate name="newUser" ng-submit="vm.addUser()">
                 <div class="reg-block-header">
                     <h2>Regisztráció</h2>
@@ -52,7 +52,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-10 col-md-offset-1">
-                        <button type="submit"class="btn btn-u btn-block"  ng-click="Index()"  ng-disabled="newUser.$invalid  || (newUser.Password.$viewValue) != (newUser.Cpassword.$viewValue)">Register</button>
+                        <button type="submit"class="btn btn-u btn-block bg-color-dark-blue"  ng-click="Index()"  ng-disabled="newUser.$invalid  || (newUser.Password.$viewValue) != (newUser.Cpassword.$viewValue)">Register</button>
                     </div>
 
                 </div>
