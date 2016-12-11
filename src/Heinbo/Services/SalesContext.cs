@@ -30,7 +30,7 @@ namespace Heinbo.Services
         {
             base.OnConfiguring(optionsBuilder);
 
-            optionsBuilder.UseSqlServer(_config["ConnectionStrings:HeinboContextConnectionTest"]);
+            optionsBuilder.UseSqlServer(_config["ConnectionStrings:HeinboContextConnection"]);
 
         }
 
