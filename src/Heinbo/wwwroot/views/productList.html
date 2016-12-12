@@ -159,7 +159,7 @@
 
 
                 <div class="filter-results">
-                    <div ng-show="vm.isBusy" class="text-center"> <i class="fa fa-spinner fa-spin"></i>Töltés...</div>
+                    <div ng-show="vm.isBusy" class="text-center color-dark-blue" style="font-size:16px"> <i class="fa fa-spinner fa-spin" style="font-size:22px"></i> Töltés...</div>
                     <div class="row illustration-v2 margin-bottom-30" ng-repeat="a in rowLimit " ng-init="rowIndex = $index">
                         <div class="col-md-4" ng-repeat="product in (responseData.product.slice(((rowIndex*3)),responseData.product.length) | orderBy: 'brand' | limitTo:3 )">
                             <div class="product-img product-img-brd">
