@@ -47,9 +47,17 @@ namespace Heinbo.Controllers.Api
         {
             if (ModelState.IsValid)
             {
-                var updateUser = Mapper.Map<User>(user);
-                await _repository.UpdateUser(updateUser);
-                return Ok();
+                try
+                {
+                    var updateUser = Mapper.Map<User>(user);
+                    await _repository.UpdateUser(updateUser);
+                    return Ok();
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError("Failed to update user " + ex.Message);
+                    return BadRequest("failed to update user");
+                }
             } else
             {
                 return BadRequest("failed to update user");
