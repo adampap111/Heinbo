@@ -31,5 +31,29 @@
           .finally(function () {
               vm.isBusy = false;
           });
+
+        vm.addToCart = function (id) {
+            vm.isBusy = true;
+            vm.errorMessage = "";
+            vm.quantity(id);
+            $http.post("/cart/AddToCart", $scope.responseData.product[id])
+            .then(function (response) {
+                //success
+
+            }, function (error) {
+                //failure
+                vm.errorMessage = error;
+            }).finally(function () {
+                vm.isBusy = false;
+            });
+        };
+
+        vm.quantity = function (i) {
+            
+            $scope.responseData.product[i].quantity = 1;
+        };
+
+
+
     }
 })();

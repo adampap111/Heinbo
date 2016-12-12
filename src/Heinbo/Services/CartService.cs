@@ -78,5 +78,25 @@ namespace Heinbo.Services
          
 
         }
+
+        public void MakeOrder(string id)
+        {
+            var cartItemQuery = _context.CartItem.Include(p => p.Product)
+               .Where(x => x.UserId == id);
+
+            foreach (var val in cartItemQuery)
+            {
+                OrderItem ls = new OrderItem();
+
+                ls.ProductID = val.ProductID;
+                ls.Quantity = val.Quantity;
+              
+
+                _context.OrderItem.Add(ls);
+            }
+
+            _repository.SaveChangesAsync();
+           
+        }
     }
 }

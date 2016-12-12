@@ -37,8 +37,8 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr ng-repeat="cartItem in cartItems" ng-init='calculateTotal($index)'>
-                                        <td class="product-in-table">
+                                    <tr ng-repeat="cartItem in cartItems" ng-init='calculateTotal($index)' ng-show="!hide" class="ng-hide">
+                                        <td class="product-in-table" >
                                             <img class="img-responsive" ng-src="../../img/blog/{{cartItem.product.productName}}.jpg" alt="">
                                             <div class="product-it-in">
                                                 <h3>{{cartItem.product.productName}}</h3>
@@ -53,7 +53,7 @@
                                         </td>
                                         <td class="shop-red">{{cartItem.product.price * cartItem.quantity}} Ft</td>
                                         <td>
-                                            <button type="button" ng-click="vm.removeItem($index)" class="close"><span>&times;</span><span class="sr-only">Close</span></button>
+                                            <button type="button"  ng-click="hide = true; vm.removeItem($index); calculateTotalAfterRemove($index)" class="close"><span>&times;</span><span class="sr-only">Close</span></button>
                                         </td>
                                     </tr>
                                 </tbody>

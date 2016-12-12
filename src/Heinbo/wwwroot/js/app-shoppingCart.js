@@ -10,7 +10,7 @@
 
         $routeProvider
               .when("/submit/", {
-                  controller: "shoppingCartSubmitController",
+                  controller: "shoppingCartController",
                   controllerAs: "vm",
                   templateUrl: "/views/shoppingCartSubmit.html"
               });

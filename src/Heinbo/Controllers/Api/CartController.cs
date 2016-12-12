@@ -20,7 +20,7 @@ namespace Heinbo.Controllers.Api
         private readonly ICartService _cartService;
         private UserManager<User> _userManager;
 
-         private ILogger<CartController> _logger;
+        private ILogger<CartController> _logger;
 
         public CartController(UserManager<User> userManager, ISalesRepository repository, ICartService cartService, ILogger<CartController> logger)
         {
@@ -29,7 +29,7 @@ namespace Heinbo.Controllers.Api
             _userManager = userManager;
             _logger = logger;
         }
-     
+
 
 
         [HttpPost("AddToCart/")]
@@ -47,7 +47,7 @@ namespace Heinbo.Controllers.Api
             var currentUser = await _repository.GetCurrentUser();
             try
             {
-              _cartService.RemoveCartItem(currentUser.Id, model.ProductId, model.VariationName);
+                _cartService.RemoveCartItem(currentUser.Id, model.ProductId, model.VariationName);
                 return await List();
             }
             catch (Exception ex)
@@ -58,31 +58,14 @@ namespace Heinbo.Controllers.Api
 
         }
 
-        //[HttpGet]
-        //public async Task<IActionResult> AddToCartResult(long cartItemId)
-        //{
-        //    var currentUser = await _repository.GetCurrentUser();
-        //    var cartItem =
-        //        _cartItemRepository.Query()
-        //            .Include(x => x.Product).ThenInclude(x => x.ThumbnailImage)
-        //            .First(x => x.Id == cartItemId);
+        [HttpPost("MakeOrder/")]
+        public async Task<IActionResult> MakeOrder([FromBody] AddToCartModel model)
+        {
+            var currentUser = await _repository.GetCurrentUser();
+            _cartService.MakeOrder(currentUser.Id);
 
-        //    var model = new AddToCartResult
-        //    {
-        //        ProductName = cartItem.Product.Name,
-        //        ProductImage = _mediaService.GetThumbnailUrl(cartItem.Product.ThumbnailImage),
-        //        ProductPrice = cartItem.Product.Price,
-        //        Quantity = cartItem.Quantity
-        //    };
-
-        //    var cartItems = _cartService.GetCartItems(currentUser.Id);
-        //    model.CartItemCount = cartItems.Count;
-        //    model.CartAmount = cartItems.Sum(x => x.Quantity * x.Product.Price);
-
-        //    return PartialView(model);
-        //}
-
-
+            return Ok();
+        }
 
         [HttpGet("")]
         public async Task<IActionResult> List()
@@ -111,6 +94,6 @@ namespace Heinbo.Controllers.Api
         //    return await List();
         //}
 
-      
+
     }
 }

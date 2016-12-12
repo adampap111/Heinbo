@@ -1,5 +1,5 @@
 ﻿
-<div ng-controller="shoppingCartSubmitController">
+<div ng-controller="shoppingCartController">
     <!--=== Breadcrumbs v4 ===-->
     <div class="breadcrumbs-v4">
         <div class="container">
@@ -67,7 +67,7 @@
                                     <tr>
                                         <td colspan="3"></td>
                                         <td><a ng-href="#/" class="btn btn-primary bg-color-dark-blue" style="width:100%;text-transform:uppercase">Vissza</a></td>
-                                        <td><a ng-href="#/submit/" class="btn btn-primary bg-color-dark-blue" style="width:100%;text-transform:uppercase">Megerősít</a></td>
+                                        <td><button type="button" ng-click="vm.sendOrder()" class="btn btn-primary bg-color-dark-blue" style="width:100%;text-transform:uppercase">Megerősít</button></td>
                                         <td></td>
                                     </tr>
                                 </tfoot>

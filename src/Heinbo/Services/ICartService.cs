@@ -11,5 +11,6 @@ namespace Heinbo.Services
         void RemoveCartItem(string userId, int productId, string variationName);
 
         void MigrateCart(long fromUserId, long toUserId);
+        void MakeOrder(string id);
     }
 }

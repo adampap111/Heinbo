@@ -35,9 +35,7 @@
             $scope.responseData.quantity = $scope.quantity;
         };
         $scope.substract = function () {
-            if ($scope.quantity < 2) {
-
-            } else {
+            if ($scope.quantity > 1) {
                 $scope.quantity = $scope.quantity - 1;
                 $scope.responseData.quantity = $scope.quantity;
             }

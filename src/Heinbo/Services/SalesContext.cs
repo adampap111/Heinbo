@@ -25,7 +25,9 @@ namespace Heinbo.Services
         public DbSet<Product> Product { get; set; }
         public DbSet<CartItem> CartItem { get; set; }
         public new DbSet<User> Users { get; set; }
-
+        public DbSet<OrderItem> OrderItem { get; set; }
+        public DbSet<Order> Order { get; set; }
+        
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
