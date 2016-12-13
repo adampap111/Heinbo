@@ -43,27 +43,35 @@
 
         $scope.addition = function (i) {
             $scope.cartItems[i].quantity = $scope.cartItems[i].quantity + 1;
-            $scope.calculateTotalAdd(i);
+            $scope.total += $scope.cartItems[i].product.price;
         };
         $scope.substract = function (i) {
-            if ($scope.cartItems[i].quantity < 2) {
-
-            } else {
+            if ($scope.cartItems[i].quantity > 1) {
                 $scope.cartItems[i].quantity = $scope.cartItems[i].quantity - 1;
-                $scope.calculateTotalSub(i);
+                $scope.total -= $scope.cartItems[i].product.price;
             }
         };
         $scope.calculateTotal = function (i) {
             $scope.total += $scope.cartItems[i].quantity * $scope.cartItems[i].product.price;
-          
         };
-        $scope.calculateTotalAdd = function (i) {
-            $scope.total += $scope.cartItems[i].product.price ;
 
+        $scope.calculateTotalAfterRemove = function (i) {
+            $scope.total -= $scope.cartItems[i].product.price * $scope.cartItems[i].quantity;
         };
-        $scope.calculateTotalSub = function (i) {
-            $scope.total -= $scope.cartItems[i].product.price;
 
+        vm.sendOrder = function () {
+            vm.isBusy = true;
+            vm.errorMessage = "";
+
+            $http.post("/cart/MakeOrder", $scope.cartItems)
+            .then(function (response) {
+                //success
+            }, function (error) {
+                //failure
+                vm.errorMessage = error;
+            }).finally(function () {
+                vm.isBusy = false;
+            });
         };
 
     }

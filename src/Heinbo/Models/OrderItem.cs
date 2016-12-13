@@ -4,24 +4,25 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Heinbo.Models
 {
-    public class CartItem
+    public class OrderItem
     {
-        public CartItem(string userId, int productID, int quantity)
+        public OrderItem(int productID, int quantity)
         {
-            UserId = userId;
+           
             ProductID = productID;
             Quantity = quantity;
         }
 
-        public CartItem()
+        public OrderItem()
         {
 
         }
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
+        public int OrderId { get; set; }
 
-        public string UserId { get; set; }
-        public virtual User User { get; set; }
+        public Order Order { get; set; }
+      
 
         public int ProductID { get; set; }
 
@@ -29,7 +30,6 @@ namespace Heinbo.Models
 
         public int Quantity { get; set; }
 
-      
     }
 
   
