@@ -21,6 +21,7 @@ namespace Heinbo
 
             services.AddScoped<ISalesRepository, SalesRepository>();
             services.AddScoped<ICartService, CartService>();
+            services.AddScoped<IOrderService, OrderService>();
             services.AddScoped<IMailService, MailService>();
             services.AddIdentity<User, IdentityRole>(config =>
   {

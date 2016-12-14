@@ -48,8 +48,6 @@ namespace Heinbo.Services
             {
                 var query = _context.CartItem.Include(p => p.Product)
                     .Where(x => x.UserId == userId);
-                
-
                 return query.ToList();
             }
             return Enumerable.Empty<CartItem>().ToList();
@@ -72,31 +70,19 @@ namespace Heinbo.Services
             }
             else
             {
-               //error
+                //error
             }
             _repository.SaveChangesAsync();
-         
-
         }
 
-        public void MakeOrder(string id)
+        public void UpdateQuantity(string userId, int cartItemId, int quantity)
         {
             var cartItemQuery = _context.CartItem.Include(p => p.Product)
-               .Where(x => x.UserId == id);
-
-            foreach (var val in cartItemQuery)
-            {
-                OrderItem ls = new OrderItem();
-
-                ls.ProductID = val.ProductID;
-                ls.Quantity = val.Quantity;
-              
-
-                _context.OrderItem.Add(ls);
-            }
+               .Where(x => x.ProductID == cartItemId && x.UserId == userId);
+            var cartItem = cartItemQuery.FirstOrDefault();
+            cartItem.Quantity = quantity;
 
             _repository.SaveChangesAsync();
-           
         }
     }
 }

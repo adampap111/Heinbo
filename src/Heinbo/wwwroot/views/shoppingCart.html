@@ -53,6 +53,9 @@
                                         </td>
                                         <td class="shop-red">{{cartItem.product.price * cartItem.quantity}} Ft</td>
                                         <td>
+                                            <button type="button" ng-click="vm.updateQuantity($index)" class="glyphicon glyphicon-ok"><span>&times;</span><span class="sr-only"></span></button>
+                                        </td>
+                                        <td>
                                             <button type="button"  ng-click="hide = true; vm.removeItem($index); calculateTotalAfterRemove($index)" class="close"><span>&times;</span><span class="sr-only">Close</span></button>
                                         </td>
                                     </tr>

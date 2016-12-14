@@ -19,7 +19,6 @@ namespace Heinbo.Controllers.Api
         private ISalesRepository _repository;
         private readonly ICartService _cartService;
         private UserManager<User> _userManager;
-
         private ILogger<CartController> _logger;
 
         public CartController(UserManager<User> userManager, ISalesRepository repository, ICartService cartService, ILogger<CartController> logger)
@@ -55,16 +54,6 @@ namespace Heinbo.Controllers.Api
                 _logger.LogError($"Failed to get the items {ex}");
                 return BadRequest("Error occured");
             }
-
-        }
-
-        [HttpPost("MakeOrder/")]
-        public async Task<IActionResult> MakeOrder([FromBody] AddToCartModel model)
-        {
-            var currentUser = await _repository.GetCurrentUser();
-            _cartService.MakeOrder(currentUser.Id);
-
-            return Ok();
         }
 
         [HttpGet("")]
@@ -82,17 +71,22 @@ namespace Heinbo.Controllers.Api
                 return BadRequest("Error occured");
             }
         }
-
-        //[HttpPost]
-        //public async Task<IActionResult> UpdateQuantity([FromBody] CartQuantityUpdate model)
-        //{
-        //    var cartItem = _cartItemRepository.Query().FirstOrDefault(x => x.Id == model.CartItemId);
-        //    cartItem.Quantity = model.Quantity;
-
-        //    _cartItemRepository.SaveChange();
-
-        //    return await List();
-        //}
+        
+         [HttpPost("UpdateQuantity/")]
+        public async Task<IActionResult> UpdateQuantity([FromBody] AddToCartModel model)
+        {
+            var currentUser = await _repository.GetCurrentUser();
+            try
+            {
+                _cartService.UpdateQuantity(currentUser.Id, model.ProductId, model.Quantity);
+                return await List();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Failed to get the items {ex}");
+                return BadRequest("Error occured");
+            }
+        }
 
 
     }
