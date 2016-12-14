@@ -1,32 +1,28 @@
 ﻿/// <reference path="lib/angular/angular.js" />
 (function () {
     "use strict";
+
     angular.module("app-productList")
         .controller("productListController", productListController);
+        
 
-    angular.module("app-productList").filter('inArray', function ($filter) {
-        return function (list, arrayFilter, element) {
-            if (arrayFilter) {
-                return $filter("filter")(list, function (listItem) {
-                    return arrayFilter.indexOf(listItem[element]) != -1;
-                });
-            }
-        };
-    });
-
-    function productListController($http, $location, $scope) {
+    function productListController($http, $location, $scope, $parse) {
         var vm = this;
         vm.errorMessage = "";
         vm.isBusy = true;
         $scope.responseData = [];
         $scope.rowLimit = [1,2,3,4];
         $scope.order = "brand";
+        //TODO
         vm.categoryFilter = [];
+        
         vm.brandFilter = [];
+        //TODO
         vm.sizeFilter = [];
 
         vm.disableBrandFilter = true;
-        vm.brandToFilterBy = {};
+        $scope.brandToFilterBy = [];
+        vm.filteredProducts = [];
 
         var splitPath1 = $location.absUrl().split("App/Product/")[0];
         var splitPath = $location.absUrl().split("App/Product/")[1];
@@ -37,6 +33,7 @@
         $http.get(url)
           .then(function (response) {
               angular.copy(response.data, $scope.responseData);
+              vm.filteredProducts = $scope.responseData.product;
           }, function (error) {
               vm.errorMessage = "Failed to load data";
           })
@@ -66,11 +63,40 @@
 
         vm.stateChanged = function (qId) {
             if (vm.brandFilter[qId]) { //If it is checked
-                vm.brandToFilterBy = $scope.responseData.brand[qId - 1];
+                $scope.brandToFilterBy.push($scope.responseData.brand[qId - 1]);
                 vm.disableBrandFilter = false;
+                vm.filterProducts();
             }
             else {
+                $scope.brandToFilterBy.splice($scope.responseData.brand[qId], 1);
+                vm.filterProducts();
+                //TODO
+
+            }
+            if ($scope.brandToFilterBy.length == 0) {
                 vm.disableBrandFilter = true;
+            }
+        };
+
+        vm.filterProducts = function () {
+            vm.filteredProducts = [];
+            if ($scope.brandToFilterBy.length > 0) {
+                for (var i = 0; i < $scope.responseData.product.length; i++) {
+                    var ind = 0;
+                    var found = false;
+                    while (!found && ind < $scope.brandToFilterBy.length) {
+                        if ($scope.responseData.product[i].brand === $scope.brandToFilterBy[ind]) {
+                            vm.filteredProducts.push($scope.responseData.product[i]);
+                            found = true;
+                        }
+                        else {
+                            ind++;
+                        }
+                    }
+                }
+            }
+            else {
+                vm.filteredProducts = $scope.responseData.product;
             }
         }
     }

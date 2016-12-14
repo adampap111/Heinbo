@@ -191,7 +191,7 @@
                 <div class="filter-results">
                     <div ng-show="vm.isBusy" class="text-center color-dark-blue" style="font-size:16px"> <i class="fa fa-spinner fa-spin" style="font-size:22px"></i> Töltés...</div>
                     <div class="row illustration-v2 margin-bottom-30">
-                        <div class="col-md-4 col-lg-4 col-sm-4" ng-repeat="product in responseData.product | filter: (!vm.disableBrandFilter || '') && {brand: vm.brandToFilterBy}">
+                        <div class="col-md-4 col-lg-4 col-sm-4" ng-repeat='product in vm.filteredProducts'>
                             <div class="product-img product-img-brd">
                                 <div>
                                     <a ng-href="{{vm.productInfoUrl}}{{product.productName}}"><img class="full-width img-responsive" ng-src="../../img/blog/{{product.productName}}.jpg" alt="s"></a>
