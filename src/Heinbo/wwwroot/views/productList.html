@@ -39,9 +39,9 @@
                                     <ul class="list-unstyled checkbox-list">
                                         <li ng-repeat="brand in responseData.brand track by $index">
                                             <label class="checkbox">
-                                                <input type="checkbox" data-ng-model='brandFilter[$index + 1]' ng-true-value="'{{brand}}'" ng-false-value="''">
+                                                <input type="checkbox" ng-model="vm.brandFilter[$index + 1]" ng-change="vm.stateChanged($index + 1)">
                                                 <i></i>
-                                                {{brand}}
+                                                <span>{{brand}}</span>
                                                 <small><a href="#">(9)</a></small>
                                             </label>
                                         </li>
@@ -68,7 +68,7 @@
                                     <ul class="list-unstyled checkbox-list">
                                         <li ng-repeat="category in responseData.category track by $index">
                                             <label class="checkbox">
-                                                <input type="checkbox" data-ng-model='categoryFilter[$index + 1]' ng-true-value="'{{category}}'" ng-false-value="''">
+                                                <input type="checkbox" data-ng-model='vm.categoryFilter[$index + 1]' ng-true-value="'{{category}}'" ng-false-value="''">
                                                 <i></i>
                                                 {{category}}
                                                 <small><a href="#">(9)</a></small>
@@ -99,7 +99,7 @@
 
                                         <li ng-repeat="size in responseData.size track by $index">
                                             <label class="checkbox">
-                                                <input type="checkbox" data-ng-model='sizeFilter[$index + 1]' ng-true-value="'{{size}}'" ng-false-value="''">
+                                                <input type="checkbox" data-ng-model='vm.sizeFilter[$index + 1]' ng-true-value="'{{size}}'" ng-false-value="''">
                                                 <i></i>
                                                 {{size}}
                                                 <small><a href="#">(0)</a></small>
@@ -158,7 +158,7 @@
                 </div><!--/end result category-->
 
 
-                <div class="filter-results">
+                <!--<div class="filter-results">
                     <div ng-show="vm.isBusy" class="text-center color-dark-blue" style="font-size:16px"> <i class="fa fa-spinner fa-spin" style="font-size:22px"></i> Töltés...</div>
                     <div class="row illustration-v2 margin-bottom-30" ng-repeat="a in rowLimit " ng-init="rowIndex = $index">
                         <div class="col-md-4" ng-repeat="product in (responseData.product.slice(((rowIndex*3)),responseData.product.length) | orderBy: 'brand' | limitTo:3 )">
@@ -186,7 +186,37 @@
                             </div>
                         </div>
                     </div>
-                </div><!--/end filter resilts-->
+                </div>--><!--/end filter resilts-->
+
+                <div class="filter-results">
+                    <div ng-show="vm.isBusy" class="text-center color-dark-blue" style="font-size:16px"> <i class="fa fa-spinner fa-spin" style="font-size:22px"></i> Töltés...</div>
+                    <div class="row illustration-v2 margin-bottom-30">
+                        <div class="col-md-4 col-lg-4 col-sm-4" ng-repeat='product in vm.filteredProducts'>
+                            <div class="product-img product-img-brd">
+                                <div>
+                                    <a ng-href="{{vm.productInfoUrl}}{{product.productName}}"><img class="full-width img-responsive" ng-src="../../img/blog/{{product.productName}}.jpg" alt="s"></a>
+                                </div>
+                                <a ng-href="{{vm.productInfoUrl}}{{product.productName}}" class="product-review">Termékinfó</a>
+                                <a class="add-to-cart" href="#"><i class="fa fa-shopping-cart"></i>Kosárba rakom</a>
+                                <div class="shop-rgba-dark-green rgba-banner">{{product.brand}}</div>
+                            </div>
+                            <div class="product-description product-description-brd margin-bottom-30">
+                                <div class="overflow-h margin-bottom-5">
+                                    <div class="pull-left">
+                                        <h4 class="title-price"><a href="shop-ui-inner.html">{{product.productName}}</a></h4>
+                                        <span class="gender text-uppercase">Men</span>
+                                        <span class="gender">{{product.category}}</span>
+                                    </div>
+                                    <div class="product-price">
+                                        <span class="title-price">{{product.price}} Ft</span>
+                                        <span class="title-price line-through">{{product.price*1.5}} Ft</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="text-center">
                     <ul class="pagination pagination-v2">
                         <li><a href="#"><i class="fa fa-angle-left"></i></a></li>
