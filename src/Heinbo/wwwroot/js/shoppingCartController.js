@@ -4,7 +4,7 @@
     angular.module("app-shoppingCart")
     .controller("shoppingCartController", shoppingCartController);
 
-    function shoppingCartController($http, $scope) {
+    function shoppingCartController($http, $scope, $modal) {
         var vm = this;
         $scope.cartItems = [];
         $scope.User = {};
@@ -126,6 +126,8 @@
 
             });
         };
+
+        //Copy billing information to shipping information
         $scope.copyUserInformations = function () {
             $scope.UserShipping = angular.copy($scope.User);
         };
@@ -166,5 +168,33 @@
             $scope.secondTabActive = false;
             $scope.thirdTabActive = true;
         };
+
+        $scope.open = function () {
+
+            $modal.open({
+                templateUrl: 'myModalContent.html',
+                backdrop: true,
+                windowClass: 'modal',
+                controller: function ($scope, $modalInstance, $log, user) {
+                    $scope.user = user;
+                    $scope.submit = function () {
+                        $log.log('Submiting user info.');
+                        $log.log(user);
+                        $modalInstance.dismiss('cancel');
+                    }
+                    $scope.cancel = function () {
+                        $modalInstance.dismiss('cancel');
+                    };
+                },
+                resolve: {
+                    user: function () {
+                        return $scope.user;
+                    }
+                }
+            });
+        };
+
+
+
     }
 })();

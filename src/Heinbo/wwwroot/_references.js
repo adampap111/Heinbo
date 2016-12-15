@@ -28,7 +28,6 @@
 /// <reference path="js/registerController.js" />
 /// <reference path="js/shop.app.js" />
 /// <reference path="js/shoppingcartcontroller.js" />
-/// <reference path="js/shoppingcartsubmitcontroller.js" />
 /// <reference path="js/site.js" />
 /// <reference path="lib/angular/angular.js" />
 /// <reference path="lib/angular-1.3.7-bootstrap/ui-bootstrap-tpls.js" />

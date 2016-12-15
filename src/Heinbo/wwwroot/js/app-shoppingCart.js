@@ -1,6 +1,6 @@
 ﻿(function () {
     "use strict";
-    angular.module("app-shoppingCart", ["ngRoute"])
+    angular.module("app-shoppingCart", ["ngRoute", 'ui.bootstrap'])
     .config(function ($routeProvider) {
         $routeProvider.when('/', {
             controller: "shoppingCartController",

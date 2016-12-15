@@ -1,5 +1,16 @@
 ﻿
+
 <div ng-controller="shoppingCartController">
+    <script type="text/ng-template" id="myModalContent.html">
+        <div class="modal-header">
+            <h3>Rendelését rögzítettük!</h3>
+        </div>
+        <div>
+            <button class="btn btn-warning" ng-click="cancel()">Ok</button>
+
+        </div>
+
+    </script>
     <!--=== Breadcrumbs v4 ===-->
     <div class="breadcrumbs-v4">
         <div class="container">
@@ -38,7 +49,7 @@
             <form class="shopping-cart" action="#" name="updateUser" novalidate ng-submit="vm.updateUser()">
                 <div class="row cart-tab-header-row">
                     <div class="col-md-4">
-                        <a href="" type="button" ng-click="showFirstTab()">
+                        <a href="" class="btn btn-block" ng-click="showFirstTab()">
                             <div class="cart-tab-header" ng-style="{'background-color': firstHeaderColor}">
                                 <div class="col-xs-2 tab-number">
                                     <h1 style="text-align: center;padding: 10px;color:#fff;">1.</h1>
@@ -51,7 +62,7 @@
                         </a>
                     </div>
                     <div class="col-md-4">
-                        <a href="" type="button" ng-click="showSecondTab()">
+                        <a href="" class="btn btn-block" ng-click="showSecondTab()">
                             <div class="cart-tab-header" ng-style="{'background-color': secondHeaderColor}">
                                 <div class="col-xs-2 tab-number">
                                     <h1 style="text-align: center;padding: 10px;color:#fff;">2.</h1>
@@ -64,7 +75,7 @@
                         </a>
                     </div>
                     <div class="col-md-4">
-                        <a  class="btn btn-block"  ng-click="showThirdTab()" ng-disabled="updateUser.$invalid">
+                        <a  class="btn btn-block" style="margin:0" ng-click="showThirdTab()" ng-disabled="updateUser.$invalid">
                                    
                             <div class="cart-tab-header" ng-style="{'background-color': thirdHeaderColor}">
                                 <div class="col-xs-2 tab-number">
@@ -143,6 +154,7 @@
                                     </li>
                                     <li style="padding-top:15px;margin:0;text-transform:uppercase" class="pull-right">
                                         <a class="btn btn-primary bg-color-dark-blue" style="width:100%;padding-left:30px;padding-right:30px;margin-right:5px" ng-click="showSecondTab()" >Tovább</a>
+                                        <div ng-show="selected">Selection from a modal: {{ selected }}</div>
                                     </li>
                                 </ul>
                             </div>
@@ -389,7 +401,7 @@
                                     </li>
                                     <li style="padding-top:15px;margin:0;text-transform:uppercase">
                                         <a class="btn btn-primary bg-color-dark-blue" style="width:47%;margin-right:5px" ng-click="showSecondTab()">Vissza</a>
-                                        <a class="btn btn-primary bg-color-dark-blue" style="width:47%;margin-left:5px" ng-click="vm.sendOrder()">Megerősít</a>
+                                        <a class="btn btn-primary bg-color-dark-blue" style="width:47%;margin-left:5px" ng-click="vm.sendOrder(); open()">Megerősít</a>
                                     </li>
                                 </ul>
                             </div>
