@@ -150,58 +150,56 @@
             $scope.pageNumber = Math.ceil(vm.filteredProducts.length / 9);
         };
 
-        vm.filterProductsByBrand = function (array) {
-            var tempArray = [];
-            if (array instanceof Array && array.length > 0) {
-                for (var i = 0; i < array.length; i++) {
-                    var ind = 0;
-                    var found = false;
-                    while (!found && ind < vm.brandFilter.brandName.length) {
-                        if (vm.brandFilter.isChecked[ind]) {
-                            if (array[i].brand === vm.brandFilter.brandName[ind]) {
-                                tempArray.push(array[i]);
-                                found = true;
-                            }
-                            else {
-                                ind++;
-                            }
-                        }
-                        else {
-                            ind++;
-                        }
-                    }
-                }
-            }
-            return tempArray;
-        };
+        //vm.filterProductsByBrand = function (array) {
+        //    var tempArray = [];
+        //    if (array instanceof Array && array.length > 0) {
+        //        for (var i = 0; i < array.length; i++) {
+        //            var ind = 0;
+        //            var found = false;
+        //            while (!found && ind < vm.brandFilter.brandName.length) {
+        //                if (vm.brandFilter.isChecked[ind]) {
+        //                    if (array[i].brand === vm.brandFilter.brandName[ind]) {
+        //                        tempArray.push(array[i]);
+        //                        found = true;
+        //                    }
+        //                    else {
+        //                        ind++;
+        //                    }
+        //                }
+        //                else {
+        //                    ind++;
+        //                }
+        //            }
+        //        }
+        //    }
+        //    return tempArray;
+        //};
 
-        vm.filterProductsByCategory = function (array) {
-            var tempArray = [];
-            if (array instanceof Array && array.length > 0) {
-                for (var i = 0; i < array.length; i++) {
-                    var ind = 0;
-                    var found = false;
-                    while (!found && ind < vm.categoryFilter.categoryName.length) {
-                        if (vm.categoryFilter.isChecked[ind]) {
-                            if (array[i].subCategory === vm.categoryFilter.categoryName[ind]) {
-                                tempArray.push(array[i]);
-                                found = true;
-                            }
-                            else {
-                                ind++;
+        //vm.filterProductsByCategory = function (array) {
+        //    var tempArray = [];
+        //    if (array instanceof Array && array.length > 0) {
+        //        for (var i = 0; i < array.length; i++) {
+        //            var ind = 0;
+        //            var found = false;
+        //            while (!found && ind < vm.categoryFilter.categoryName.length) {
+        //                if (vm.categoryFilter.isChecked[ind]) {
+        //                    if (array[i].subCategory === vm.categoryFilter.categoryName[ind]) {
+        //                        tempArray.push(array[i]);
+        //                        found = true;
+        //                    }
+        //                    else {
+        //                        ind++;
 
-                                vm.errorMessage = vm.errorMessage + " " + array[i].subCategory;
-
-                            }
-                        }
-                        else {
-                            ind++;
-                        }
-                    }
-                }
-            }
-            return tempArray;
-        };
+        //                    }
+        //                }
+        //                else {
+        //                    ind++;
+        //                }
+        //            }
+        //        }
+        //    }
+        //    return tempArray;
+        //};
 
         vm.filterProductsGeneric = function (array, isCheckedArray, attrArray) {
             var tempArray = [];
