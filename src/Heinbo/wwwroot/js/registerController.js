@@ -3,7 +3,7 @@
     angular.module("app-register")
     .controller("registerController", registerController);
 
-    function registerController($scope,$http) {
+    function registerController($scope,$http,$location) {
         var vm = this;
         vm.user = [];
 
@@ -23,6 +23,7 @@
             $http.post("/api/register", vm.newUser)
             .then(function (response) {
                 //success
+                $location.path("/Auth/Login");
                 vm.user.push(response.data);
                 vm.newUser = {};
             }, function (error) {

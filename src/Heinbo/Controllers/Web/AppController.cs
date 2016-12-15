@@ -76,25 +76,6 @@ namespace Heinbo.Controllers.Web
             return View();
         }
 
-        //[HttpPost]
-        //public IActionResult Contact(ContactViewModel model)
-        //{
-        //    if (model.Email != null)
-        //    {
-        //        if (model.Email.Contains("aol.com"))
-        //        {
-        //            ModelState.AddModelError("Email", "We don't support AOL addresses");
-        //        }
-        //    }
-        //    if (ModelState.IsValid)
-        //    {
-        //        _mailService.SendMail(_config["MailSettings:ToAddress"], model.Email, "hello", model.Message);
-        //        ModelState.Clear();
-        //        ViewBag.UserMessage = "Message Sent";
-        //    }
-        //    return View();
-        //}
-
         public IActionResult About()
         {
             return View();

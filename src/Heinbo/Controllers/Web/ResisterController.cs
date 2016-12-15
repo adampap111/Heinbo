@@ -9,7 +9,7 @@ using Heinbo.Models;
 using Heinbo.ViewModels;
 using Heinbo.Services;
 
-namespace Heinbo.Controllers.Api
+namespace Heinbo.Controllers
 {
     [Route("api/register")]
     public class ResisterController : Controller
@@ -23,16 +23,25 @@ namespace Heinbo.Controllers.Api
         }
 
         [HttpPost("")]
-        public async Task<IActionResult> Post([FromBody]UserViewModel theUser)
+        public async Task<IActionResult> Post([FromBody]UserViewModel theUser, string returnUrl)
         {
             if (ModelState.IsValid)
             {
                 var password = theUser.Password;
                 var newUser = Mapper.Map<User>(theUser);
-                //Save to the database
-                await _repository.AddUser(newUser, password);
-               
-                return RedirectToAction("Index", "App");
+                //Save to the database              
+                try
+                {
+                    if (string.IsNullOrWhiteSpace(returnUrl))
+                    {
+                        await _repository.AddUser(newUser, password);
+                        return RedirectToAction("Index", "App");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    return BadRequest("Error occured");
+                }
             }
             return BadRequest("failed to save");
         }
