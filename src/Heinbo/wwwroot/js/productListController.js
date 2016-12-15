@@ -17,11 +17,14 @@
         vm.categoryFilter = [];
         
         vm.brandFilter = [];
+        vm.brandFilter.isChecked = [];
+        vm.brandFilter.brandName = [];
+
         //TODO
         vm.sizeFilter = [];
 
-        vm.disableBrandFilter = true;
-        $scope.brandToFilterBy = [];
+        //vm.disableBrandFilter = true;
+        //$scope.brandToFilterBy = [];
         vm.filteredProducts = [];
 
         var splitPath1 = $location.absUrl().split("App/Product/")[0];
@@ -62,30 +65,31 @@
         };
 
         vm.stateChanged = function (qId) {
-            if (vm.brandFilter[qId]) { //If it is checked
-                $scope.brandToFilterBy.push($scope.responseData.brand[qId - 1]);
-                vm.disableBrandFilter = false;
-                vm.filterProducts();
+            if (vm.brandFilter.isChecked[qId]) {
+
+                //$scope.brandToFilterBy.push($scope.responseData.brand[qId - 1]);
+
+                vm.brandFilter.brandName[qId] = $scope.responseData.brand[qId - 1];
+                //vm.disableBrandFilter = false;
+                vm.filterProductsByBrand();
             }
             else {
-                $scope.brandToFilterBy.splice($scope.responseData.brand[qId], 1);
-                vm.filterProducts();
-                //TODO
-
+                //$scope.brandToFilterBy.splice($scope.responseData.brand[qId], 1);
+                vm.filterProductsByBrand();
             }
-            if ($scope.brandToFilterBy.length == 0) {
-                vm.disableBrandFilter = true;
-            }
+            //if ($scope.brandToFilterBy.length == 0) {
+            //    vm.disableBrandFilter = true;
+            //}
         };
 
-        vm.filterProducts = function () {
+        vm.filterProductsByBrand = function () {
             vm.filteredProducts = [];
-            if ($scope.brandToFilterBy.length > 0) {
-                for (var i = 0; i < $scope.responseData.product.length; i++) {
-                    var ind = 0;
-                    var found = false;
-                    while (!found && ind < $scope.brandToFilterBy.length) {
-                        if ($scope.responseData.product[i].brand === $scope.brandToFilterBy[ind]) {
+            for (var i = 0; i < $scope.responseData.product.length; i++) {
+                var ind = 0;
+                var found = false;
+                while (!found && ind < vm.brandFilter.brandName.length) {
+                    if (vm.brandFilter.isChecked[ind]) {
+                        if ($scope.responseData.product[i].brand === vm.brandFilter.brandName[ind]) {
                             vm.filteredProducts.push($scope.responseData.product[i]);
                             found = true;
                         }
@@ -93,11 +97,36 @@
                             ind++;
                         }
                     }
+                    else {
+                        ind++;
+                    }                   
                 }
             }
-            else {
+            if (vm.filteredProducts.length == 0) {
                 vm.filteredProducts = $scope.responseData.product;
             }
         }
+
+        //vm.filterProducts = function () {
+        //    vm.filteredProducts = [];
+        //    if ($scope.brandToFilterBy.length > 0) {
+        //        for (var i = 0; i < $scope.responseData.product.length; i++) {
+        //            var ind = 0;
+        //            var found = false;
+        //            while (!found && ind < $scope.brandToFilterBy.length) {
+        //                if ($scope.responseData.product[i].brand === $scope.brandToFilterBy[ind]) {
+        //                    vm.filteredProducts.push($scope.responseData.product[i]);
+        //                    found = true;
+        //                }
+        //                else {
+        //                    ind++;
+        //                }
+        //            }
+        //        }
+        //    }
+        //    else {
+        //        vm.filteredProducts = $scope.responseData.product;
+        //    }
+        //}
     }
 })();
