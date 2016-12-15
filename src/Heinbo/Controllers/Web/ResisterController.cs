@@ -40,7 +40,7 @@ namespace Heinbo.Controllers
                 }
                 catch (Exception ex)
                 {
-                    return BadRequest("Error occured");
+                    return BadRequest(ex +"Error occured");
                 }
             }
             return BadRequest("failed to save");

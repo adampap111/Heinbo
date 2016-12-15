@@ -7,10 +7,13 @@
     function shoppingCartController($http, $scope) {
         var vm = this;
         $scope.cartItems = [];
+        $scope.User = {};
+        $scope.UserShipping = {};
         $scope.total = 0;
         vm.errorMessage = "";
         vm.isBusy = true;
         var url = "/cart/";
+        var urlUser = "/user/profile";
 
         //get all cart items
         $http.get(url)
@@ -41,7 +44,7 @@
         };
 
         //update cartItem quantity by ID
-        vm.updateQuantity = function (id) {
+        $scope.updateQuantity = function (id) {
             vm.isBusy = true;
             vm.errorMessage = "";
             $http.post("/cart/UpdateQuantity", $scope.cartItems[id])
@@ -75,11 +78,13 @@
         $scope.addition = function (i) {
             $scope.cartItems[i].quantity = $scope.cartItems[i].quantity + 1;
             $scope.total += $scope.cartItems[i].product.price;
+            $scope.updateQuantity(i);
         };
         $scope.substract = function (i) {
             if ($scope.cartItems[i].quantity > 1) {
                 $scope.cartItems[i].quantity = $scope.cartItems[i].quantity - 1;
                 $scope.total -= $scope.cartItems[i].product.price;
+                $scope.updateQuantity(i);
             }
         };
         $scope.calculateTotal = function (i) {
@@ -91,11 +96,48 @@
         //
 
 
-        $scope.firstHeaderColor = '#313788';
 
+        // Get user 
+        $http.get(urlUser)
+  .then(function (response) {
+      angular.copy(response.data, $scope.User);
+
+  }, function (error) {
+      vm.errorMessage = "Failed to load user";
+  })
+  .finally(function () {
+      vm.isBusy = false;
+  });
+
+        //Update user informations
+        vm.updateUser = function () {
+            vm.isBusy = true;
+            vm.errorMessage = "";
+
+            $http.post(urlUser, $scope.User)
+            .then(function (response) {
+                //Success
+            }, function (error) {
+                //Failure
+                vm.errorMessage = "Failed to update the user" + error;
+
+            }).finally(function () {
+                vm.isBusy = false;
+
+            });
+        };
+        $scope.copyUserInformations = function () {
+            $scope.UserShipping = angular.copy($scope.User);
+        };
+
+
+        //Tab menus
+        $scope.firstHeaderColor = '#313788';
         $scope.firstTabActive = true;
         $scope.secondTabActive = false;
         $scope.thirdTabActive = false;
+
+
 
         $scope.showFirstTab = function () {
             $scope.firstHeaderColor = '#313788';
@@ -119,6 +161,7 @@
             $scope.firstHeaderColor = '#4765A0';
             $scope.secondHeaderColor = '#4765A0';
             $scope.thirdHeaderColor = '#313788';
+            vm.updateUser();
             $scope.firstTabActive = false;
             $scope.secondTabActive = false;
             $scope.thirdTabActive = true;
