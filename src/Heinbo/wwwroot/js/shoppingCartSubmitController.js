@@ -6,13 +6,50 @@
 
     function shoppingCartSubmitController($http, $scope) {
         var vm = this;
-        $scope.cartItems = [];
-        $scope.total = 110;
         vm.errorMessage = "";
+        vm.number = 1000;
         vm.isBusy = true;
-        var url = "/cart/";
+        vm.user = [];
+        vm.updatedNotifier = false;
+        vm.errorNotifier = false;
 
-       
+        vm.responseData = {};
+
+        var url = "/user/profile";
+
+        $http.get(url)
+          .then(function (response) {
+              angular.copy(response.data, vm.responseData);
+
+          }, function (error) {
+              vm.errorMessage = "Failed to load user";
+          })
+          .finally(function () {
+              vm.isBusy = false;
+          });
+
+        vm.updateUser = function () {
+            vm.isBusy = true;
+            vm.errorMessage = "";
+
+            $http.post(url, vm.responseData)
+            .then(function (response) {
+                //Success
+                vm.user.push(response.data);
+                vm.updatedNotifier = true;
+                vm.errorNotifier = false;
+            }, function (error) {
+                //Failure
+                vm.errorMessage = "Failed to update the user" + error;
+                vm.updatedNotifier = false;
+                vm.errorNotifier = true;
+            }).finally(function () {
+                vm.isBusy = false;
+
+            });
+        };
+
+
 
     }
 
