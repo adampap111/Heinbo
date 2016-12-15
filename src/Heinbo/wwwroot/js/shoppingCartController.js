@@ -137,6 +137,8 @@
         $scope.secondTabActive = false;
         $scope.thirdTabActive = false;
 
+
+
         $scope.showFirstTab = function () {
             $scope.firstHeaderColor = '#313788';
             $scope.secondHeaderColor = '#4765A0';
