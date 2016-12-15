@@ -41,15 +41,17 @@
     <!-- CSS Customization -->
     <link rel="stylesheet" href="~/css/custom.css">
     <style type="text/css">
-        input[type=number]::-webkit-inner-spin-button, 
-        input[type=number]::-webkit-outer-spin-button { 
+        /* number field spinner remover */
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button {
             -webkit-appearance: none;
             -moz-appearance: none;
             appearance: none;
-            margin: 0; 
+            margin: 0;
         }
+
         input[type=number] {
-            -moz-appearance:textfield;
+            -moz-appearance: textfield;
         }
     </style>
 </head>

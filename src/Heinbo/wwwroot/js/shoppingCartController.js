@@ -89,5 +89,39 @@
             $scope.total -= $scope.cartItems[i].product.price * $scope.cartItems[i].quantity;
         };
         //
+
+
+        $scope.firstHeaderColor = '#313788';
+
+        $scope.firstTabActive = true;
+        $scope.secondTabActive = false;
+        $scope.thirdTabActive = false;
+
+        $scope.showFirstTab = function () {
+            $scope.firstHeaderColor = '#313788';
+            $scope.secondHeaderColor = '#4765A0';
+            $scope.thirdHeaderColor = '#4765A0';
+            $scope.thirdTabActive = false;
+            $scope.secondTabActive = false;
+            $scope.firstTabActive = true;
+        };
+
+        $scope.showSecondTab = function () {
+            $scope.firstHeaderColor = '#4765A0';
+            $scope.secondHeaderColor = '#313788';
+            $scope.thirdHeaderColor = '#4765A0';
+            $scope.firstTabActive = false;
+            $scope.secondTabActive = true;
+            $scope.thirdTabActive = false;
+        };
+
+        $scope.showThirdTab = function () {
+            $scope.firstHeaderColor = '#4765A0';
+            $scope.secondHeaderColor = '#4765A0';
+            $scope.thirdHeaderColor = '#313788';
+            $scope.firstTabActive = false;
+            $scope.secondTabActive = false;
+            $scope.thirdTabActive = true;
+        };
     }
 })();

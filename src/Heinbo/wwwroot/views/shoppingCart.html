@@ -15,15 +15,69 @@
     <!--=== End Breadcrumbs v4 ===-->
     <!--=== Content Medium Part ===-->
     <div class="content-md margin-bottom-30">
+        <style type="text/css">
+            /* Shopping cart styling */
+            div.cart-tab-header-row {
+                padding: 10px;
+                background-color: #fff;
+            }
+
+            div.cart-tab-header {
+                background-color: #4765A0;
+                height: 100px;
+                color: #fff;
+            }
+
+            div.cart-tab-header .tab-number {
+                text-align: center;
+                padding: 5px;
+                padding-left: 20px;
+            }
+        </style>
         <div class="container">
-            <form class="shopping-cart" action="#">
-                <div>
-                    <div class="header-tags">
-                        <div class="overflow-h">
-                            <h2>Bevásárló kosár</h2>
-                            <p>Áttekintés &amp; módosítás</p>
+            <div class="row cart-tab-header-row">
+                <div class="col-md-4">
+                    <a href="" type="button" ng-click="showFirstTab()">
+                        <div class="cart-tab-header" ng-style="{'background-color': firstHeaderColor}">
+                            <div class="col-xs-2 tab-number">
+                                <h1 style="text-align: center;padding: 10px;color:#fff;">1.</h1>
+                            </div>
+                            <div class="col-xs-10">
+                                <h3 style="color:#fff;padding:13px 10px 0 10px">Bevásárló kosár</h3>
+                                <p style="color:#fff;padding:0 10px 13px 10px">Áttekintés & módosítás</p>
+                            </div>
                         </div>
-                    </div>
+                    </a>
+                </div>
+                <div class="col-md-4">
+                    <a href="" type="button" ng-click="showSecondTab()">
+                        <div class="cart-tab-header" ng-style="{'background-color': secondHeaderColor}">
+                            <div class="col-xs-2 tab-number">
+                                <h1 style="text-align: center;padding: 10px;color:#fff;">2.</h1>
+                            </div>
+                            <div class="col-xs-10">
+                                <h3 style="color:#fff;padding:13px 10px 0 10px">Billing info</h3>
+                                <p style="color:#fff;padding:0 10px 13px 10px">Billing and shipping information</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-4">
+                    <a href="" type="button" ng-click="showThirdTab()">
+                        <div class="cart-tab-header" ng-style="{'background-color': thirdHeaderColor}">
+                            <div class="col-xs-2 tab-number">
+                                <h1 style="text-align: center;padding: 10px;color:#fff;">3.</h1>
+                            </div>
+                            <div class="col-xs-10">
+                                <h3 style="color:#fff;padding:13px 10px 0 10px">Order</h3>
+                                <p style="color:#fff;padding:0 10px 13px 10px">Review your order</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <form class="shopping-cart" action="#">
+                <div ng-show="firstTabActive">
                     <section>
                         <div class="table-responsive">
                             <table class="table table-striped">
@@ -38,7 +92,7 @@
                                 </thead>
                                 <tbody>
                                     <tr ng-repeat="cartItem in cartItems" ng-init='calculateTotal($index)' ng-show="!hide" class="ng-hide">
-                                        <td class="product-in-table" >
+                                        <td class="product-in-table">
                                             <img class="img-responsive" ng-src="../../img/blog/{{cartItem.product.productName}}.jpg" alt="">
                                             <div class="product-it-in">
                                                 <h3>{{cartItem.product.productName}}</h3>
@@ -53,31 +107,321 @@
                                         </td>
                                         <td class="shop-red">{{cartItem.product.price * cartItem.quantity}} Ft</td>
                                         <td>
-                                            <button type="button" ng-click="vm.updateQuantity($index)" class="glyphicon glyphicon-ok"><span>&times;</span><span class="sr-only"></span></button>
-                                        </td>
-                                        <td>
-                                            <button type="button"  ng-click="hide = true; vm.removeItem($index); calculateTotalAfterRemove($index)" class="close"><span>&times;</span><span class="sr-only">Close</span></button>
+                                            <button type="button" ng-click="hide = true; vm.removeItem($index); calculateTotalAfterRemove($index)" class="close"><span>&times;</span><span class="sr-only">Close</span></button>
                                         </td>
                                     </tr>
                                 </tbody>
-                                <tfoot class="color-dark font-bold" style="font-size:16px;text-transform:uppercase">
-                                    <tr>
-                                        <td colspan="2"> </td>
-                                        <td align="center">Összesen:</td>
-                                        <td align="center">{{total}} Ft</td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="3"></td>
-                                        <td><a ng-href="#/submit/" class="btn btn-primary bg-color-dark-blue" style="width:100%;text-transform:uppercase">Tovább</a></td>
-                                        <td></td>
-                                    </tr>
-                                </tfoot>
                             </table>
                         </div>
                     </section>
+                    <div class="coupon-code">
+                        <div class="row">
+                            <div class="col-sm-4 sm-margin-bottom-30">
+                            </div>
+                            <div class="col-sm-3 col-sm-offset-5">
+                                <ul class="list-inline total-result">
+                                    <li>
+                                        <h4>Részösszeg:</h4>
+                                        <div class="total-result-in">
+                                            <span>{{total}} Ft</span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <h4>Szállítás:</h4>
+                                        <div class="total-result-in">
+                                            <span class="text-right">- - - -</span>
+                                        </div>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li class="total-price">
+                                        <h4>Végösszeg:</h4>
+                                        <div class="total-result-in">
+                                            <span>{{total}} Ft</span>
+                                        </div>
+                                    </li>
+                                    <li style="padding-top:15px;margin:0;text-transform:uppercase" class="pull-right">
+                                        <a class="btn btn-primary bg-color-dark-blue" style="width:100%;padding-left:30px;padding-right:30px;margin-right:5px" ng-click="showSecondTab()">Tovább</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </form>
-        </div><!--/end container-->
+                <div ng-show="secondTabActive">
+                    <section class="billing-info">
+                        <div class="row">
+                            <div class="col-md-6 md-margin-bottom-40">
+                                <h2 class="title-type">Billing Address</h2>
+                                <div class="billing-info-inputs checkbox-list">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <input id="name" type="text" placeholder="First Name" name="firstname" class="form-control required">
+                                            <input id="email" type="text" placeholder="Email" name="email" class="form-control required email">
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <input id="surname" type="text" placeholder="Last Name" name="lastname" class="form-control required">
+                                            <input id="phone" type="tel" placeholder="Phone" name="phone" class="form-control required">
+                                        </div>
+                                    </div>
+                                    <input id="billingAddress" type="text" placeholder="Address Line 1" name="address1" class="form-control required">
+                                    <input id="billingAddress2" type="text" placeholder="Address Line 2" name="address2" class="form-control required">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <input id="city" type="text" placeholder="City" name="city" class="form-control required">
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <input id="zip" type="text" placeholder="Zip/Postal Code" name="zip" class="form-control required">
+                                        </div>
+                                    </div>
+                                    <label class="checkbox text-left">
+                                        <input type="checkbox" name="checkbox" />
+                                        <i></i>
+                                        Ship item to the above billing address
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <h2 class="title-type">Shipping Address</h2>
+                                <div class="billing-info-inputs checkbox-list">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <input id="name2" type="text" placeholder="First Name" name="firstname" class="form-control">
+                                            <input id="email2" type="text" placeholder="Email" name="email" class="form-control email">
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <input id="surname2" type="text" placeholder="Last Name" name="lastname" class="form-control">
+                                            <input id="phone2" type="tel" placeholder="Phone" name="phone" class="form-control">
+                                        </div>
+                                    </div>
+                                    <input id="shippingAddress" type="text" placeholder="Address Line 1" name="address1" class="form-control">
+                                    <input id="shippingAddress2" type="text" placeholder="Address Line 2" name="address2" class="form-control">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <input id="city2" type="text" placeholder="City" name="city" class="form-control">
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <input id="zip2" type="text" placeholder="Zip/Postal Code" name="zip" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <div class="coupon-code">
+                        <div class="row">
+                            <div class="col-sm-4 sm-margin-bottom-30">
+                            </div>
+                            <div class="col-sm-3 col-sm-offset-5">
+                                <ul class="list-inline total-result">
+                                    <li>
+                                        <h4>Részösszeg:</h4>
+                                        <div class="total-result-in">
+                                            <span>{{total}} Ft</span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <h4>Szállítás:</h4>
+                                        <div class="total-result-in">
+                                            <span class="text-right">- - - -</span>
+                                        </div>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li class="total-price">
+                                        <h4>Végösszeg:</h4>
+                                        <div class="total-result-in">
+                                            <span>{{total}} Ft</span>
+                                        </div>
+                                    </li>
+                                    <li style="padding-top:15px;margin:0;text-transform:uppercase">
+                                        <a class="btn btn-primary bg-color-dark-blue" style="width:47%;margin-right:5px" ng-click="showFirstTab()">Vissza</a>
+                                        <a class="btn btn-primary bg-color-dark-blue" style="width:47%;margin-left:5px" ng-click="showThirdTab()">Tovább</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div ng-show="thirdTabActive">
+                    <section>
+                        <div class="row">
+                            <div class="col-md-6 md-margin-bottom-50">
+                                <h2 class="title-type">Choose a payment method</h2>
+                                <!-- Accordion -->
+                                <div class="accordion-v2">
+                                    <div class="panel-group" id="accordion">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                                                        <i class="fa fa-credit-card"></i>
+                                                        Credit or Debit Card
+                                                    </a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapseOne" class="panel-collapse collapse in">
+                                                <div class="panel-body cus-form-horizontal">
+                                                    <div class="form-group">
+                                                        <label class="col-sm-4 no-col-space control-label">Cardholder Name</label>
+                                                        <div class="col-sm-8">
+                                                            <input type="text" class="form-control required" name="cardholder" placeholder="">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-sm-4 no-col-space control-label">Card Number</label>
+                                                        <div class="col-sm-8">
+                                                            <input type="text" class="form-control required" name="cardnumber" placeholder="">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-sm-4 no-col-space control-label">Payment Types</label>
+                                                        <div class="col-sm-8">
+                                                            <ul class="list-inline payment-type">
+                                                                <li><i class="fa fa-cc-paypal"></i></li>
+                                                                <li><i class="fa fa-cc-visa"></i></li>
+                                                                <li><i class="fa fa-cc-mastercard"></i></li>
+                                                                <li><i class="fa fa-cc-discover"></i></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-sm-4">Expiration Date</label>
+                                                        <div class="col-sm-8 input-small-field">
+                                                            <input type="text" name="mm" placeholder="MM" class="form-control required sm-margin-bottom-20">
+                                                            <span class="slash">/</span>
+                                                            <input type="text" name="yy" placeholder="YY" class="form-control required">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-sm-4 no-col-space control-label">CSC</label>
+                                                        <div class="col-sm-8 input-small-field">
+                                                            <input type="text" name="number" placeholder="" class="form-control required">
+                                                            <a href="#">What's this?</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                                                        <i class="fa fa-paypal"></i>
+                                                        Pay with PayPal
+                                                    </a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapseTwo" class="panel-collapse collapse">
+                                                <div class="content margin-left-10">
+                                                    <a href="#"><img src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/PP_logo_h_150x38.png" alt="PayPal"></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End Accordion -->
+                            </div>
+                            <div class="col-md-6">
+                                <h2 class="title-type">Frequently asked questions</h2>
+                                <!-- Accordion -->
+                                <div class="accordion-v2 plus-toggle">
+                                    <div class="panel-group" id="accordion-v2">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a data-toggle="collapse" data-parent="#accordion-v2" href="#collapseOne-v2">
+                                                        What payments methods can I use?
+                                                    </a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapseOne-v2" class="panel-collapse collapse in">
+                                                <div class="panel-body">
+                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam hendrerit, felis vel tincidunt sodales, urna metus rutrum leo, sit amet finibus velit ante nec lacus. Cras erat nunc, pulvinar nec leo at, rhoncus elementum orci. Nullam ut sapien ultricies, gravida ante ut, ultrices nunc.
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a data-toggle="collapse" class="collapsed" data-parent="#accordion-v2" href="#collapseTwo-v2">
+                                                        Can I use gift card to pay for my purchase?
+                                                    </a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapseTwo-v2" class="panel-collapse collapse">
+                                                <div class="panel-body">
+                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam hendrerit, felis vel tincidunt sodales, urna metus rutrum leo, sit amet finibus velit ante nec lacus. Cras erat nunc, pulvinar nec leo at, rhoncus elementum orci. Nullam ut sapien ultricies, gravida ante ut, ultrices nunc.
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a data-toggle="collapse" class="collapsed" data-parent="#accordion-v2" href="#collapseThree-v2">
+                                                        Will I be charged when I place my order?
+                                                    </a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapseThree-v2" class="panel-collapse collapse">
+                                                <div class="panel-body">
+                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam hendrerit, felis vel tincidunt sodales, urna metus rutrum leo, sit amet finibus velit ante nec lacus. Cras erat nunc, pulvinar nec leo at, rhoncus elementum orci. Nullam ut sapien ultricies, gravida ante ut, ultrices nunc.
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a data-toggle="collapse" class="collapsed" data-parent="#accordion-v2" href="#collapseFour-v2">
+                                                        How long will it take to get my order?
+                                                    </a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapseFour-v2" class="panel-collapse collapse">
+                                                <div class="panel-body">
+                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam hendrerit, felis vel tincidunt sodales, urna metus rutrum leo, sit amet finibus velit ante nec lacus. Cras erat nunc, pulvinar nec leo at, rhoncus elementum orci. Nullam ut sapien ultricies, gravida ante ut, ultrices nunc.
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End Accordion -->
+                            </div>
+                        </div>
+                    </section>
+                    <div class="coupon-code">
+                        <div class="row">
+                            <div class="col-sm-4 sm-margin-bottom-30">
+                            </div>
+                            <div class="col-sm-3 col-sm-offset-5">
+                                <ul class="list-inline total-result">
+                                    <li>
+                                        <h4>Részösszeg:</h4>
+                                        <div class="total-result-in">
+                                            <span>{{total}} Ft</span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <h4>Szállítás:</h4>
+                                        <div class="total-result-in">
+                                            <span class="text-right">- - - -</span>
+                                        </div>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li class="total-price">
+                                        <h4>Végösszeg:</h4>
+                                        <div class="total-result-in">
+                                            <span>{{total}} Ft</span>
+                                        </div>
+                                    </li>
+                                    <li style="padding-top:15px;margin:0;text-transform:uppercase">
+                                        <a class="btn btn-primary bg-color-dark-blue" style="width:47%;margin-right:5px" ng-click="showSecondTab()">Vissza</a>
+                                        <a class="btn btn-primary bg-color-dark-blue" style="width:47%;margin-left:5px" ng-click="vm.sendOrder()">Megerősít</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>                       
+        </div>
     </div>
 </div>
