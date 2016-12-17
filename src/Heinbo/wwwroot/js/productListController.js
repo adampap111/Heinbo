@@ -88,6 +88,22 @@
                 vm.maxProductNr = vm.maxProductNr - 9;
             }
         };
+        
+        //ordering products
+        $scope.orderByBrand = function () {
+            $scope.order = 'brand';
+            $scope.ordering = "Márka";
+        }
+
+        $scope.orderByCategory = function () {
+            $scope.order = 'category';
+            $scope.ordering = "Kategória";
+        }
+
+        $scope.orderBySize = function () {
+            $scope.order = 'size';
+            $scope.ordering = "Méret";
+        }
 
         //product limit on page
         $scope.setNine = function () {
