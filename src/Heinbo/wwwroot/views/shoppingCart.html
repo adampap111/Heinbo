@@ -5,11 +5,9 @@
         <div class="modal-header">
             <h3>Rendelését rögzítettük!</h3>
         </div>
-        <div>
-            <button class="btn btn-warning" ng-click="cancel()">Ok</button>
-
+        <div >
+            <button class="btn btn-warning"  ng-click="cancel()">Ok</button>
         </div>
-
     </script>
     <!--=== Breadcrumbs v4 ===-->
     <div class="breadcrumbs-v4">
@@ -62,7 +60,7 @@
                         </a>
                     </div>
                     <div class="col-md-4">
-                        <a href="" class="btn btn-block" ng-click="showSecondTab()">
+                        <a href="" class="btn btn-block" ng-click="showSecondTab()" data-ng-disabled="cartItems.length < 1">
                             <div class="cart-tab-header" ng-style="{'background-color': secondHeaderColor}">
                                 <div class="col-xs-2 tab-number">
                                     <h1 style="text-align: center;padding: 10px;color:#fff;">2.</h1>
@@ -75,8 +73,8 @@
                         </a>
                     </div>
                     <div class="col-md-4">
-                        <a  class="btn btn-block" style="margin:0" ng-click="showThirdTab()" ng-disabled="updateUser.$invalid">
-                                   
+                        <a class="btn btn-block" style="margin:0" ng-click="showThirdTab()" ng-disabled="updateUser.$invalid">
+
                             <div class="cart-tab-header" ng-style="{'background-color': thirdHeaderColor}">
                                 <div class="col-xs-2 tab-number">
                                     <h1 style="text-align: center;padding: 10px;color:#fff;">3.</h1>
@@ -104,7 +102,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr ng-repeat="cartItem in cartItems" ng-init='calculateTotal($index)' ng-show="!hide" class="ng-hide">
+                                    <tr ng-repeat="cartItem in cartItems" ng-init='calculateTotal($index)'>
                                         <td class="product-in-table">
                                             <img class="img-responsive" ng-src="../../img/blog/{{cartItem.product.productName}}.jpg" alt="">
                                             <div class="product-it-in">
@@ -120,8 +118,16 @@
                                         </td>
                                         <td class="shop-red">{{cartItem.product.price * cartItem.quantity}} Ft</td>
                                         <td>
-                                            <button type="button" ng-click="hide = true; vm.removeItem($index); calculateTotalAfterRemove($index)" class="close"><span>&times;</span><span class="sr-only">Close</span></button>
+                                            <button type="button" ng-click="calculateTotalAfterRemove(cartItems.indexOf(cartItem))" class="close"><span>&times;</span><span class="sr-only">Close</span></button>
                                         </td>
+                                    </tr>
+                                    <tr>
+
+                                        <th colspan="5" style="text-align:center">
+                                            <span ng-if="cartItems.length < 1" class="animate-if">
+                                                Nincs termék a kosárban.
+                                            </span>
+                                        </th>
                                     </tr>
                                 </tbody>
                             </table>
@@ -153,8 +159,8 @@
                                         </div>
                                     </li>
                                     <li style="padding-top:15px;margin:0;text-transform:uppercase" class="pull-right">
-                                        <a class="btn btn-primary bg-color-dark-blue" style="width:100%;padding-left:30px;padding-right:30px;margin-right:5px" ng-click="showSecondTab()" >Tovább</a>
-                                        <div ng-show="selected">Selection from a modal: {{ selected }}</div>
+                                        <a class="btn btn-primary bg-color-dark-blue" style="width:100%;padding-left:30px;padding-right:30px;margin-right:5px" ng-click="showSecondTab(); open()" data-ng-disabled="cartItems.length < 1">Tovább</a>
+
                                     </li>
                                 </ul>
                             </div>
@@ -166,26 +172,31 @@
 
                         <div class="row">
                             <div class="col-md-6 md-margin-bottom-40">
-                                <h2 class="title-type">Számlázási cím</h2>
+                                <div class="row">
+                                    <div class="col-md-6"><h2 class="title-type">Számlázási cím</h2></div>
+                                    <div class="col-md-6" style="padding-top:9px" ng-show="updateUser.$invalid">
+                                        <span class="label label-danger form-control">
+                                            Töltse ki a hiányzó adatokat.
+                                        </span>
+                                    </div>
+                                </div>
+
                                 <div class="billing-info-inputs checkbox-list">
                                     <div class="row">
-                                        <div class="col-sm-6">
+                                        <div role="alert" class="col-sm-6" ng-class="{ 'has-error' : (updateUser.uName.$invalid && !updateUser.uName.$pristine) || (updateUser.email.$invalid && !updateUser.email.$pristine) }">
+                                            <input type="text" placeholder="Keresztnév" ng-model="User.firstName" name="uName" class="form-control" required>
+                                            <input type="text" placeholder="Email" ng-model="User.email" name="email" class="form-control" required="required">
 
-
-                                            <div ng-show="updateUser.$submitted || updateUser.uName.$touched">
-                                                <div ng-show="updateUser.uName.$error.required">Név kötelező</div>
-                                            </div>
-                                            <input type="text" placeholder="Keresztnév" ng-model="User.firstName" name="uName" class="form-control" required />
-
-                                            <input id="email" type="text" placeholder="Email" name="email" ng-model="User.email" class="form-control required email">
                                         </div>
+
                                         <div class="col-sm-6">
-                                            <input id="surname" type="text" placeholder="Vezetéknév" name="lastname" ng-model="User.lastName" class="form-control required">
-                                            <input id="phone" type="tel" placeholder="Phone" name="phone" ng-model="User.phoneNumber" class="form-control required">
+                                            <input type="text" placeholder="Vezetéknév" name="lastName" ng-model="User.lastName" class="form-control" required="required">
+                                            <input id="phone" type="tel" placeholder="Phone" name="phone" ng-model="User.phoneNumber" class="form-control" required="required">
                                         </div>
                                     </div>
+
                                     <div>
-                                        <input id="billingAddress" type="text" placeholder="Utca" name="address1" ng-model="User.street" class="form-control required">
+                                        <input id="billingAddress" type="text" placeholder="Utca" name="address1" ng-model="User.street" class="form-control" required">
                                         <input type="number" name="streetNr" class="form-control" placeholder="h.sz." ng-model="User.streetNumber" required>
                                     </div>
                                     <div class="row">
@@ -204,7 +215,15 @@
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <h2 class="title-type">Szállítási cím</h2>
+                                <div class="row">
+                                    <div class="col-md-6"><h2 class="title-type">Szállítási cím</h2></div>
+                                    <div class="col-md-6" style="padding-top:9px" ng-show="updateUser.$invalid">
+                                        <span class="label label-danger form-control">
+                                            Töltse ki a hiányzó adatokat.
+                                        </span>
+                                    </div>
+                                </div>
+
                                 <div class="billing-info-inputs checkbox-list">
                                     <div class="row">
                                         <div class="col-sm-6">
