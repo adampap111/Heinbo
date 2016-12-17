@@ -34,7 +34,7 @@
             vm.errorMessage = "";
             $http.post("/cart/RemoveFromCart", $scope.cartItems[id])
             .then(function (response) {
-                //success
+            
             }, function (error) {
                 //failure
                 vm.errorMessage = error;
@@ -92,6 +92,7 @@
         };
         $scope.calculateTotalAfterRemove = function (i) {
             $scope.total -= $scope.cartItems[i].product.price * $scope.cartItems[i].quantity;
+            $('.shop-badge .badge').text($scope.cartItems.length);
         };
         //
 
