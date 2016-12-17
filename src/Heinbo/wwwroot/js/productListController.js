@@ -27,8 +27,8 @@
         vm.sizeFilter.size = [];
 
         $scope.pageNumber = 1;
-        $scope.minProductNr = 0;
-        $scope.maxProductNr = 9;
+        vm.minProductNr = 0;
+        vm.maxProductNr = 9;
 
         vm.filteredProducts = [];
         
@@ -75,17 +75,17 @@
         };
 
         //page steps
-        $scope.nextPage = function () {
-            if ($scope.pageNumber >= 1 && $scope.responseData.product.length > $scope.maxProductNr) {
-                $scope.minProductNr = $scope.minProductNr + 9;
-                $scope.maxProductNr = $scope.maxProductNr + 9;
+        vm.nextPage = function () {
+            if ($scope.pageNumber >= 1 && $scope.responseData.product.length > vm.maxProductNr) {
+                vm.minProductNr = vm.minProductNr + 9;
+                vm.maxProductNr = vm.maxProductNr + 9;
             }
         };
 
-        $scope.previousPage = function () {
-            if ($scope.pageNumber >= 1 && $scope.minProductNr > 8) {
-                $scope.minProductNr = $scope.minProductNr - 9;
-                $scope.maxProductNr = $scope.maxProductNr - 9;
+        vm.previousPage = function () {
+            if ($scope.pageNumber >= 1 && vm.minProductNr > 8) {
+                vm.minProductNr = vm.minProductNr - 9;
+                vm.maxProductNr = vm.maxProductNr - 9;
             }
         };
 
@@ -140,8 +140,8 @@
         };
 
         vm.filterProducts = function (isCheckedArray, attrArray) {
-            $scope.minProductNr = 0;
-            $scope.maxProductNr = 9;
+            vm.minProductNr = 0;
+            vm.maxProductNr = 9;
             vm.filteredProducts = [];
             vm.filteredProducts = vm.filterProductsGeneric($scope.responseData.product, isCheckedArray, attrArray);
             if (vm.filteredProducts.length == 0) {

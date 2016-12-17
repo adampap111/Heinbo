@@ -185,7 +185,7 @@
                 <div class="filter-results">
                     <div ng-show="vm.isBusy" class="text-center color-dark-blue" style="font-size:16px"> <i class="fa fa-spinner fa-spin" style="font-size:22px"></i> Töltés...</div>
                     <div class="row illustration-v2 margin-bottom-30">
-                        <div class="col-md-4 col-lg-4 col-sm-4" ng-repeat="product in vm.filteredProducts | orderBy:order | limitTo:maxProductNr:minProductNr">
+                        <div class="col-md-4 col-lg-4 col-sm-4" ng-repeat="product in vm.filteredProducts | orderBy:order | limitTo:vm.maxProductNr:vm.minProductNr">
                             <div class="product-img product-img-brd">
                                 <div>
                                     <a ng-href="{{vm.productInfoUrl}}{{product.productName}}"><img class="full-width img-responsive" ng-src="../../img/blog/{{product.productName}}.jpg" alt="s"></a>
@@ -213,10 +213,10 @@
 
                 <div class="text-center" ng-if="vm.filteredProducts.length > 9">
                     <ul class="pagination pagination-v2">
-                        <li><a href="" ng-click="previousPage()"><i class="fa fa-angle-left"></i></a></li>
+                        <li><a href="" ng-click="vm.previousPage()"><i class="fa fa-angle-left"></i></a></li>
                         <li class="active"><a href="#">1</a></li>
                         <li ng-repeat="i in getNumber(pageNumber) track by $index"><a href="">{{$index + 2}}</a></li>
-                        <li><a href="" ng-click="nextPage()"><i class="fa fa-angle-right"></i></a></li>
+                        <li><a href="" ng-click="vm.nextPage()"><i class="fa fa-angle-right"></i></a></li>
                     </ul>
                 </div><!--/end pagination-->
 
