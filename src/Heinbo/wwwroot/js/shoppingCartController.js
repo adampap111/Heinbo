@@ -4,9 +4,11 @@
     angular.module("app-shoppingCart")
     .controller("shoppingCartController", shoppingCartController);
 
-    function shoppingCartController($http, $scope, $modal) {
+    function shoppingCartController($http, $scope, $uibModal, $location) {
         var vm = this;
         $scope.cartItems = [];
+        vm.cartItemsNew = [];
+        var shoppingcartNumber = $scope.cartItems.length;
         $scope.User = {};
         $scope.UserShipping = {};
         $scope.total = 0;
@@ -34,7 +36,8 @@
             vm.errorMessage = "";
             $http.post("/cart/RemoveFromCart", $scope.cartItems[id])
             .then(function (response) {
-            
+                //  angular.copy(response.data, vm.cartItemsNew);
+                //   $scope.cartUpdate();
             }, function (error) {
                 //failure
                 vm.errorMessage = error;
@@ -79,6 +82,7 @@
             $scope.cartItems[i].quantity = $scope.cartItems[i].quantity + 1;
             $scope.total += $scope.cartItems[i].product.price;
             $scope.updateQuantity(i);
+
         };
         $scope.substract = function (i) {
             if ($scope.cartItems[i].quantity > 1) {
@@ -92,12 +96,12 @@
         };
         $scope.calculateTotalAfterRemove = function (i) {
             $scope.total -= $scope.cartItems[i].product.price * $scope.cartItems[i].quantity;
+            vm.removeItem(i);
+            $scope.cartItems.splice(i, 1);
             $('.shop-badge .badge').text($scope.cartItems.length);
+
         };
         //
-
-
-
         // Get user 
         $http.get(urlUser)
   .then(function (response) {
@@ -172,10 +176,14 @@
 
         $scope.open = function () {
 
-            $modal.open({
+            $uibModal.open({
                 templateUrl: 'myModalContent.html',
                 backdrop: true,
-                windowClass: 'modal',
+                keyboard: true,
+                windowClass: 'center-modal',
+                size: 'sm',
+                animation: 'true',
+                appendTo: 'middle',
                 controller: function ($scope, $modalInstance, $log, user) {
                     $scope.user = user;
                     $scope.submit = function () {
@@ -184,6 +192,7 @@
                         $modalInstance.dismiss('cancel');
                     }
                     $scope.cancel = function () {
+                        document.location.href = "/";
                         $modalInstance.dismiss('cancel');
                     };
                 },
