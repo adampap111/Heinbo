@@ -10,6 +10,7 @@ using AutoMapper;
 using System.Collections.Generic;
 using System;
 using Microsoft.Extensions.Logging;
+using Heinbo.Controllers.Web;
 
 namespace Heinbo.Controllers.Api
 {
@@ -20,6 +21,7 @@ namespace Heinbo.Controllers.Api
         private readonly ICartService _cartService;
         private UserManager<User> _userManager;
         private ILogger<CartController> _logger;
+  
 
         public CartController(UserManager<User> userManager, ISalesRepository repository, ICartService cartService, ILogger<CartController> logger)
         {
@@ -27,6 +29,7 @@ namespace Heinbo.Controllers.Api
             _repository = repository;
             _userManager = userManager;
             _logger = logger;
+        
         }
 
 
@@ -37,7 +40,8 @@ namespace Heinbo.Controllers.Api
             var currentUser = await _repository.GetCurrentUser();
             CartItem cartItem = _cartService.AddToCart(currentUser.Id, model.ProductId, model.VariationName, model.Quantity);
 
-            return RedirectToAction("AddToCartResult", new { cartItemId = cartItem.ProductID });
+       
+            return RedirectToAction("CartBadge");
         }
 
         [HttpPost("RemoveFromCart/")]

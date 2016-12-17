@@ -191,7 +191,7 @@
                                     <a ng-href="{{vm.productInfoUrl}}{{product.productName}}"><img class="full-width img-responsive" ng-src="../../img/blog/{{product.productName}}.jpg" alt="s"></a>
                                 </div>
                                 <a ng-href="{{vm.productInfoUrl}}{{product.productName}}" class="product-review">Termékinfó</a>
-                                <a class="add-to-cart" href="#"><i class="fa fa-shopping-cart"></i>Kosárba rakom</a>
+                                <button type='button' class="add-to-cart" ng-click="vm.addToCart($index)"><i class="fa fa-shopping-cart">Kosárba rakom</i></button>
                                 <div class="shop-rgba-dark-green rgba-banner">{{product.brand}}</div>
                             </div>
                             <div class="product-description product-description-brd margin-bottom-30">

@@ -17,7 +17,9 @@
         vm.productName = splitPath.split("#/")[0];
 
         var url = "/api/productInfo/" + vm.productName;
-   
+        
+        vm.cartViewModel = {};
+       
 
         $http.get(url)
           .then(function (response) {
@@ -33,11 +35,13 @@
         $scope.addition = function () {
             $scope.quantity = $scope.quantity + 1;
             $scope.responseData.quantity = $scope.quantity;
+            $('.shop-badge .badge').text(222);
         };
         $scope.substract = function () {
             if ($scope.quantity > 1) {
                 $scope.quantity = $scope.quantity - 1;
                 $scope.responseData.quantity = $scope.quantity;
+                $('.shop-badge .badge').text($scope.responseData.length);
             }
         };
 
