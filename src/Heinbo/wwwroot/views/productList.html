@@ -129,9 +129,9 @@
                                         {{ordering}} <span class="caret"></span>
                                     </button>
                                     <ul class="dropdown-menu" role="menu">
-                                        <li ng-click="order='brand'"><a>Márka</a></li>
-                                        <li ng-click="order='category'"><a>Kategória</a></li>
-                                        <li ng-click="order='size'"><a>Méret</a></li>
+                                        <li ng-click="orderByBrand()"><a>Márka</a></li>
+                                        <li ng-click="orderByCategory()"><a>Kategória</a></li>
+                                        <li ng-click="orderBySize()"><a>Méret</a></li>
                                     </ul>
                                 </div>
                             </li>
@@ -214,8 +214,8 @@
                 <div class="text-center" ng-if="vm.filteredProducts.length > 9">
                     <ul class="pagination pagination-v2">
                         <li><a href="" ng-click="vm.previousPage()"><i class="fa fa-angle-left"></i></a></li>
-                        <li class="active"><a href="#">1</a></li>
-                        <li ng-repeat="i in getNumber(pageNumber) track by $index"><a href="">{{$index + 2}}</a></li>
+                        <li class="active"><a href="">1</a></li>
+                        <li ng-repeat="i in getNumber(pageNumber) track by $index" ><a href="">{{$index + 2}}</a></li>
                         <li><a href="" ng-click="vm.nextPage()"><i class="fa fa-angle-right"></i></a></li>
                     </ul>
                 </div><!--/end pagination-->
