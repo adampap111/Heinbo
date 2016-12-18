@@ -36,8 +36,6 @@
             vm.errorMessage = "";
             $http.post("/cart/RemoveFromCart", $scope.cartItems[id])
             .then(function (response) {
-                //  angular.copy(response.data, vm.cartItemsNew);
-                //   $scope.cartUpdate();
             }, function (error) {
                 //failure
                 vm.errorMessage = error;

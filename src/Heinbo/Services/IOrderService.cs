@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Heinbo.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,6 @@ namespace Heinbo.Services
 {
     public interface IOrderService
     {
-        void MakeOrder(string id);
+        string MakeOrder(string id);
     }
 }

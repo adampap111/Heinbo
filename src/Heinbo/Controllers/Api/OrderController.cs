@@ -19,15 +19,16 @@ namespace Heinbo.Controllers.Api
         private ISalesRepository _repository;
         private readonly IOrderService _orderService;
         private UserManager<User> _userManager;
-
+        private IMailService _mailService;
         private ILogger<CartController> _logger;
 
-        public OrderController(UserManager<User> userManager, ISalesRepository repository, IOrderService orderService, ILogger<CartController> logger)
+        public OrderController(IMailService mailService, UserManager<User> userManager, ISalesRepository repository, IOrderService orderService, ILogger<CartController> logger)
         {
             _orderService = orderService;
             _repository = repository;
             _userManager = userManager;
             _logger = logger;
+            _mailService = mailService;
         }
 
 
@@ -35,8 +36,21 @@ namespace Heinbo.Controllers.Api
         public async Task<IActionResult> MakeOrder([FromBody] AddToCartModel model)
         {
             var currentUser = await _repository.GetCurrentUser();
-            _orderService.MakeOrder(currentUser.Id);
-            return Ok();
+          var mailBody = "Kedves "+ currentUser.LastName +" " +currentUser.FirstName + "! \n\n" + _orderService.MakeOrder(currentUser.Id);
+            
+            try
+            {
+                await _mailService.SendEmailAsync("heinbomail555@gmail.com", currentUser.Email,
+                "order", mailBody , currentUser.LastName);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Failed to send the email " + ex.Message);
+                return BadRequest("Failed to send the email");
+            }
+        
         }
+
     }
 }

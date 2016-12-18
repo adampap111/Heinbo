@@ -41,7 +41,7 @@ namespace Heinbo.Controllers.Api
             CartItem cartItem = _cartService.AddToCart(currentUser.Id, model.ProductId, model.VariationName, model.Quantity);
 
        
-            return RedirectToAction("CartBadge");
+            return Ok();
         }
 
         [HttpPost("RemoveFromCart/")]
