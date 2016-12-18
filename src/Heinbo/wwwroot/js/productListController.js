@@ -4,15 +4,58 @@
 
     angular.module("app-productList")
         .controller("productListController", productListController);
+
+    angular.module("app-productList")
+        .filter('filterMultiple', ['$filter', function ($filter) {
+        return function (items, keyObj) {
+            var filterObj = {
+                data: items,
+                filteredData: [],
+                applyFilter: function (obj, key) {
+                    var fData = [];
+                    if (this.filteredData.length == 0)
+                        this.filteredData = this.data;
+                    if (obj) {
+                        var fObj = {};
+                        if (!angular.isArray(obj)) {
+                            fObj[key] = obj;
+                            fData = fData.concat($filter('filter')(this.filteredData, fObj));
+                        } else if (angular.isArray(obj)) {
+                            if (obj.length > 0) {
+                                for (var i = 0; i < obj.length; i++) {
+                                    if (angular.isDefined(obj[i])) {
+                                        fObj[key] = obj[i];
+                                        fData = fData.concat($filter('filter')(this.filteredData, fObj));
+                                    }
+                                }
+                            }
+                        }
+                        // show everything if criteria does not match anything
+                        if (fData.length > 0) {
+                            this.filteredData = fData;
+                        }
+                        // show nothing if criteria does not match anything
+                        //this.filteredData = fData;
+                    }
+                }
+            };
+            if (keyObj) {
+                angular.forEach(keyObj, function (obj, key) {
+                    filterObj.applyFilter(obj, key);
+                });
+            }
+            return filterObj.filteredData;
+        }
+        }]);
         
 
-    function productListController($http, $location, $scope, $parse) {
+    function productListController($http, $location, $scope, $parse, $filter) {
         var vm = this;
         vm.errorMessage = "";
         vm.isBusy = true;
         $scope.responseData = [];
-        //$scope.rowLimit = [1,2,3,4];
-        $scope.order = "brand";
+        
+
         
         vm.categoryFilter = [];
         vm.categoryFilter.isChecked = [];
@@ -29,7 +72,10 @@
         $scope.pageNumber = 1;
         vm.minProductNr = 0;
         vm.maxProductNr = 9;
-
+        vm.limit = 9;
+        vm.order = "brand";
+        vm.ordering = "Márka";
+        vm.isActivePage = 1;
         vm.filteredProducts = [];
         
         var splitPath1 = $location.absUrl().split("App/Product/")[0];
@@ -41,8 +87,7 @@
         $http.get(url)
           .then(function (response) {
               angular.copy(response.data, $scope.responseData);
-              vm.filteredProducts = $scope.responseData.product;
-              $scope.pageNumber = Math.ceil(vm.filteredProducts.length / 9) - 1;
+              $scope.pageNumber = Math.ceil($scope.responseData.product.length / 9) - 1;
           }, function (error) {
               vm.errorMessage = "Failed to load data";
           })
@@ -88,83 +133,116 @@
                 vm.maxProductNr = vm.maxProductNr - 9;
             }
         };
+
+        vm.jumpToPage = function (pageNr) {
+            vm.minProductNr = (pageNr * vm.limit) - vm.limit;
+            vm.maxProductNr = pageNr * vm.limit;
+            vm.isActivePage = pageNr;
+        }
         
         //ordering products
-        $scope.orderByBrand = function () {
-            $scope.order = 'brand';
-            $scope.ordering = "Márka";
+        vm.orderByBrand = function () {
+            vm.order = 'brand';
+            vm.ordering = "Márka";
         }
 
-        $scope.orderByCategory = function () {
-            $scope.order = 'category';
-            $scope.ordering = "Kategória";
+        vm.orderByCategory = function () {
+            vm.order = 'category';
+            vm.ordering = "Kategória";
         }
 
-        $scope.orderBySize = function () {
-            $scope.order = 'size';
-            $scope.ordering = "Méret";
+        vm.orderBySize = function () {
+            vm.order = 'size';
+            vm.ordering = "Méret";
         }
 
         //product limit on page
-        $scope.setNine = function () {
-            $scope.maxProductNr = $scope.minProductNr + 9;
-            $scope.limit = 9;
+        vm.setNine = function () {
+            vm.maxProductNr = vm.minProductNr + 9;
+            vm.limit = 9;
         };
 
-        $scope.setEightteen = function () {
-            $scope.maxProductNr = $scope.minProductNr + 18;
-            $scope.limit = 18;
+        vm.setEightteen = function () {
+            vm.maxProductNr = vm.minProductNr + 18;
+            vm.limit = 18;
         };
 
-        $scope.setTwentyseven = function () {
-            $scope.maxProductNr = $scope.minProductNr + 27;
-            $scope.limit = 27;
+        vm.setTwentyseven = function () {
+            vm.maxProductNr = vm.minProductNr + 27;
+            vm.limit = 27;
         };
 
         // filters
         vm.stateChanged = function (qId) {
-            if (vm.brandFilter.isChecked[qId]) {
-                vm.brandFilter.brandName[qId] = $scope.responseData.brand[qId - 1];
-
-                vm.filterProducts(vm.brandFilter.isChecked, vm.brandFilter.brandName);  
-            }
-            else {
-                vm.filterProducts(vm.brandFilter.isChecked, vm.brandFilter.brandName);
-            }
-        };
-
-        vm.categoryStateChanged = function (qId) {
-            if (vm.categoryFilter.isChecked[qId]) {
-                vm.categoryFilter.categoryName[qId] = $scope.responseData.category[qId - 1];
-
-                vm.filterProducts(vm.categoryFilter.isChecked, vm.categoryFilter.categoryName);
-            }
-            else {
-                vm.filterProducts(vm.categoryFilter.isChecked, vm.categoryFilter.categoryName);
-            }
-        };
-
-        vm.sizeStateChanged = function (qId) {
-            if (vm.sizeFilter.isChecked[qId]) {
-                vm.sizeFilter.size[qId] = $scope.responseData.size[qId - 1];
-
-                vm.filterProducts(vm.sizeFilter.isChecked, vm.sizeFilter.size);
-            }
-            else {
-                vm.filterProducts(vm.sizeFilter.isChecked, vm.sizeFilter.size);
-            }
-        };
-
-        vm.filterProducts = function (isCheckedArray, attrArray) {
             vm.minProductNr = 0;
             vm.maxProductNr = 9;
-            vm.filteredProducts = [];
-            vm.filteredProducts = vm.filterProductsGeneric($scope.responseData.product, isCheckedArray, attrArray);
-            if (vm.filteredProducts.length == 0) {
-                vm.filteredProducts = $scope.responseData.product;
+            if (vm.brandFilter.isChecked[qId]) {
+                vm.brandFilter.brandName.push($scope.responseData.brand[qId]);
+            }
+            else {
+                var elementToRemove = $scope.responseData.brand[qId];
+                var index = vm.brandFilter.brandName.indexOf(elementToRemove);
+                if (index > -1) {
+                    vm.brandFilter.brandName.splice(index, 1);
+                }
             }
             $scope.pageNumber = Math.ceil(vm.filteredProducts.length / 9);
         };
+
+        vm.categoryStateChanged = function (qId) {
+            vm.minProductNr = 0;
+            vm.maxProductNr = 9;
+            if (vm.categoryFilter.isChecked[qId]) {
+                vm.categoryFilter.categoryName.push($scope.responseData.category[qId]);
+            }
+            else {
+                var elementToRemove = $scope.responseData.category[qId];
+                var index = vm.categoryFilter.categoryName.indexOf(elementToRemove);
+                if (index > -1) {
+                    vm.categoryFilter.categoryName.splice(index, 1);
+                }
+            }
+            $scope.pageNumber = Math.ceil(vm.filteredProducts.length / 9);
+        };
+
+        vm.sizeStateChanged = function (qId) {
+            vm.minProductNr = 0;
+            vm.maxProductNr = 9;
+            if (vm.sizeFilter.isChecked[qId]) {
+                vm.sizeFilter.size.push($scope.responseData.size[qId]);
+            }
+            else {
+                var elementToRemove = $scope.responseData.size[qId];
+                var index = vm.sizeFilter.size.indexOf(elementToRemove);
+                if (index > -1) {
+                    vm.sizeFilter.size.splice(index, 1);
+                }
+            }
+            $scope.pageNumber = Math.ceil(vm.filteredProducts.length / 9);
+        };
+
+        //get number of products
+        $scope.getBrandCount = function (strCat) {
+            return $filter('filter')($scope.responseData.product, { brand: strCat }).length;
+        }
+
+        $scope.getCatCount = function (strCat) {
+            return $filter('filter')($scope.responseData.product, { subCategory: strCat }).length;
+        }
+
+        $scope.getSizeCount = function (strCat) {
+            return $filter('filter')($scope.responseData.product, { size: strCat }).length;
+        }
+
+        
+
+        //vm.filterProducts = function (isCheckedArray, attrArray) {           
+            //vm.filteredProducts = [];
+            //vm.filteredProducts = vm.filterProductsGeneric($scope.responseData.product, isCheckedArray, attrArray);
+            //if (vm.filteredProducts.length == 0) {
+            //    vm.filteredProducts = $scope.responseData.product;
+            //} 
+        //};
 
         //vm.filterProductsByBrand = function (array) {
         //    var tempArray = [];
@@ -217,30 +295,30 @@
         //    return tempArray;
         //};
 
-        vm.filterProductsGeneric = function (array, isCheckedArray, attrArray) {
-            var tempArray = [];
-            if (array instanceof Array && array.length > 0) {
-                for (var i = 0; i < array.length; i++) {
-                    var ind = 0;
-                    var found = false;
-                    while (!found && ind < attrArray.length) {
-                        if (isCheckedArray[ind]) {
-                            if (array[i].brand === attrArray[ind] || array[i].subCategory === attrArray[ind] || array[i].size === attrArray[ind]) {
-                                tempArray.push(array[i]);
-                                found = true;
-                            }
-                            else {
-                                ind++;
-                            }
-                        }
-                        else {
-                            ind++;
-                            vm.errorMessage = vm.errorMessage + " " + tempArray.length;
-                        }
-                    }
-                }
-            }
-            return tempArray;
-        };
+        //vm.filterProductsGeneric = function (array, isCheckedArray, attrArray) {
+        //    var tempArray = [];
+        //    if (array instanceof Array && array.length > 0) {
+        //        for (var i = 0; i < array.length; i++) {
+        //            var ind = 0;
+        //            var found = false;
+        //            while (!found && ind < attrArray.length) {
+        //                if (isCheckedArray[ind]) {
+        //                    if (array[i].brand === attrArray[ind] || array[i].subCategory === attrArray[ind] || array[i].size === attrArray[ind]) {
+        //                        tempArray.push(array[i]);
+        //                        found = true;
+        //                    }
+        //                    else {
+        //                        ind++;
+        //                    }
+        //                }
+        //                else {
+        //                    ind++;
+        //                    vm.errorMessage = vm.errorMessage + " " + tempArray.length;
+        //                }
+        //            }
+        //        }
+        //    }
+        //    return tempArray;
+        //};
     }
 })();
