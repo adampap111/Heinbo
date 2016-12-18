@@ -14,11 +14,11 @@
             <div ng-show="vm.isBusy" class="text-center"> <i class="fa fa-spinner fa-spin"></i>Töltés...</div>
             <div>
                 <ul class="list-inline owl-slider" style="text-align:center;">
-                    <li class="item" style="display:inline-block;" ng-repeat="product in vm.products | limitTo: 6">
+                    <li class="item" style="display:inline-block;" ng-repeat="product in products | limitTo: 6">
                         <div class="product-img">
                             <a ng-href="App/ProductInfo/{{product.productName}}"><img class="img-width-300 img-responsive" ng-src="../img/blog/{{product.productName}}.jpg" alt=""></a>
                             <a class="product-review" ng-href="App/ProductInfo/{{product.productName}}">Termékinfó</a>
-                            <a class="add-to-cart" href="#"><i class="fa fa-shopping-cart"></i>Kosárba rakom</a>
+                            <button type='button' class="add-to-cart" ng-click="vm.addToCart($index)"><i class="fa fa-shopping-cart">Kosárba rakom</i></button>
                             <div class="shop-rgba-red rgba-banner">Akcios</div>
                         </div>
                         <div class="product-description product-description-brd">

@@ -7,60 +7,60 @@
 
     angular.module("app-productList")
         .filter('filterMultiple', ['$filter', function ($filter) {
-        return function (items, keyObj) {
-            var filterObj = {
-                data: items,
-                filteredData: [],
-                applyFilter: function (obj, key) {
-                    var fData = [];
-                    if (this.filteredData.length == 0)
-                        this.filteredData = this.data;
-                    if (obj) {
-                        var fObj = {};
-                        if (!angular.isArray(obj)) {
-                            fObj[key] = obj;
-                            fData = fData.concat($filter('filter')(this.filteredData, fObj));
-                        } else if (angular.isArray(obj)) {
-                            if (obj.length > 0) {
-                                for (var i = 0; i < obj.length; i++) {
-                                    if (angular.isDefined(obj[i])) {
-                                        fObj[key] = obj[i];
-                                        fData = fData.concat($filter('filter')(this.filteredData, fObj));
+            return function (items, keyObj) {
+                var filterObj = {
+                    data: items,
+                    filteredData: [],
+                    applyFilter: function (obj, key) {
+                        var fData = [];
+                        if (this.filteredData.length == 0)
+                            this.filteredData = this.data;
+                        if (obj) {
+                            var fObj = {};
+                            if (!angular.isArray(obj)) {
+                                fObj[key] = obj;
+                                fData = fData.concat($filter('filter')(this.filteredData, fObj));
+                            } else if (angular.isArray(obj)) {
+                                if (obj.length > 0) {
+                                    for (var i = 0; i < obj.length; i++) {
+                                        if (angular.isDefined(obj[i])) {
+                                            fObj[key] = obj[i];
+                                            fData = fData.concat($filter('filter')(this.filteredData, fObj));
+                                        }
                                     }
                                 }
                             }
+                            // show everything if criteria does not match anything
+                            if (fData.length > 0) {
+                                this.filteredData = fData;
+                            }
+                            // show nothing if criteria does not match anything
+                            //this.filteredData = fData;
                         }
-                        // show everything if criteria does not match anything
-                        if (fData.length > 0) {
-                            this.filteredData = fData;
-                        }
-                        // show nothing if criteria does not match anything
-                        //this.filteredData = fData;
                     }
+                };
+                if (keyObj) {
+                    angular.forEach(keyObj, function (obj, key) {
+                        filterObj.applyFilter(obj, key);
+                    });
                 }
-            };
-            if (keyObj) {
-                angular.forEach(keyObj, function (obj, key) {
-                    filterObj.applyFilter(obj, key);
-                });
+                return filterObj.filteredData;
             }
-            return filterObj.filteredData;
-        }
         }]);
-        
+
 
     function productListController($http, $location, $scope, $parse, $filter) {
         var vm = this;
         vm.errorMessage = "";
         vm.isBusy = true;
         $scope.responseData = [];
-        
+        $scope.cartItems = [];
 
-        
+
         vm.categoryFilter = [];
         vm.categoryFilter.isChecked = [];
         vm.categoryFilter.categoryName = [];
-        
+
         vm.brandFilter = [];
         vm.brandFilter.isChecked = [];
         vm.brandFilter.brandName = [];
@@ -77,12 +77,13 @@
         vm.ordering = "Márka";
         vm.isActivePage = 1;
         vm.filteredProducts = [];
-        
+
         var splitPath1 = $location.absUrl().split("App/Product/")[0];
         var splitPath = $location.absUrl().split("App/Product/")[1];
         vm.category = splitPath.split("#/")[0];
         vm.productInfoUrl = splitPath1 + "App/ProductInfo/";
         var url = "/api/product/" + vm.category;
+        var urlCartItems = "/cart/";
 
         $http.get(url)
           .then(function (response) {
@@ -95,10 +96,26 @@
               vm.isBusy = false;
           });
 
+        //get all cart items
+        $http.get(urlCartItems)
+        .then(function (response) {
+            //success
+            angular.copy(response.data, $scope.cartItems);
+        }, function (error) {
+            //failure
+            vm.errorMessage = "Failed to load data" + error;
+        })
+        .finally(function () {
+            vm.isBusy = false;
+        });
+
         vm.addToCart = function (id) {
             vm.isBusy = true;
             vm.errorMessage = "";
             vm.quantity(id);
+            $scope.cartItems.push(id);
+            $('.shop-badge .badge').text($scope.cartItems.length);
+           
             $http.post("/cart/AddToCart", $scope.responseData.product[id])
             .then(function (response) {
                 //success
@@ -111,8 +128,8 @@
             });
         };
 
-        vm.quantity = function (i) {            
-        $scope.responseData.product[i].quantity = 1;
+        vm.quantity = function (i) {
+            $scope.responseData.product[i].quantity = 1;
         };
 
         $scope.getNumber = function (num) {
@@ -139,7 +156,7 @@
             vm.maxProductNr = pageNr * vm.limit;
             vm.isActivePage = pageNr;
         }
-        
+
         //ordering products
         vm.orderByBrand = function () {
             vm.order = 'brand';
@@ -234,14 +251,14 @@
             return $filter('filter')($scope.responseData.product, { size: strCat }).length;
         }
 
-        
+
 
         //vm.filterProducts = function (isCheckedArray, attrArray) {           
-            //vm.filteredProducts = [];
-            //vm.filteredProducts = vm.filterProductsGeneric($scope.responseData.product, isCheckedArray, attrArray);
-            //if (vm.filteredProducts.length == 0) {
-            //    vm.filteredProducts = $scope.responseData.product;
-            //} 
+        //vm.filteredProducts = [];
+        //vm.filteredProducts = vm.filterProductsGeneric($scope.responseData.product, isCheckedArray, attrArray);
+        //if (vm.filteredProducts.length == 0) {
+        //    vm.filteredProducts = $scope.responseData.product;
+        //} 
         //};
 
         //vm.filterProductsByBrand = function (array) {
