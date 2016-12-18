@@ -19,7 +19,7 @@ namespace Heinbo.Services
             _repository = repository;
         }
 
-        public void MakeOrder(string id)
+        public string MakeOrder(string id)
         {
             var cartItemQuery = _context.CartItem.Include(p => p.Product)
                .Where(x => x.UserId == id);
@@ -44,8 +44,21 @@ namespace Heinbo.Services
             _context.Add(order);
 
             _repository.SaveChangesAsync();
-
+            
+            return MakeOrderMailBody(order);
         }
+        private string MakeOrderMailBody(Order order)
+        {
+            string orderItems = "";
+            foreach (OrderItem o in order.OrderItems)
+            {
+                orderItems +="Termék: " + o.Product.ProductName + "  Mennyiség" + (o.Quantity.ToString()) + " darab  Egységár:" + (o.Product.Price * o.Quantity).ToString() + " Ft \n\n";
+            }
+            string message = "Köszönjük, hogy nálunk vásárolt!" + "\n\n\n" + orderItems + "\n" + "Teljes összeg:  " + order.TotalPrice.ToString() + " Ft" + " \n\n Utalja a végösszeget a 4352-4326-2525 bankszámlaszámra  \n Üdvözlettel: Heinbo Kft.";
 
+            return message;
+        }
     }
+    
+
 }
