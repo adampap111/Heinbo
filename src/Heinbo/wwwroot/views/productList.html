@@ -36,12 +36,12 @@
                             <div id="collapseOne" class="panel-collapse collapse in">
                                 <div class="panel-body">
                                     <ul class="list-unstyled checkbox-list">
-                                        <li ng-repeat="brand in responseData.brand track by $index">
+                                        <li ng-repeat="product in responseData.product | unique:'brand' track by $index">
                                             <label class="checkbox">
                                                 <input type="checkbox" ng-model="vm.brandFilter.isChecked[$index]" ng-change="vm.stateChanged($index)">
                                                 <i></i>
-                                                <span>{{brand}}</span>
-                                                <small><a href="">({{getBrandCount(brand)}})</a></small>
+                                                <span>{{product.brand}}</span>
+                                                <small><a href="">({{getBrandCount(product.brand)}})</a></small>
                                             </label>
                                         </li>
 
@@ -66,12 +66,12 @@
                             <div id="collapseTwo" class="panel-collapse collapse in">
                                 <div class="panel-body">
                                     <ul class="list-unstyled checkbox-list">
-                                        <li ng-repeat="category in responseData.category track by $index">
+                                        <li ng-repeat="product in responseData.product | unique:'subCategory' track by $index">
                                             <label class="checkbox">
                                                 <input type="checkbox" ng-model="vm.categoryFilter.isChecked[$index]" ng-change="vm.categoryStateChanged($index)">
                                                 <i></i>
-                                                {{category}}
-                                                <small><a href="#">({{getCatCount(category)}})</a></small>
+                                                {{product.subCategory}}
+                                                <small><a href="#">({{getCatCount(product.subCategory)}})</a></small>
                                             </label>
                                         </li>
                                     </ul>
