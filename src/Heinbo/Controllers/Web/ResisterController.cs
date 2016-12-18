@@ -35,7 +35,8 @@ namespace Heinbo.Controllers
                     if (string.IsNullOrWhiteSpace(returnUrl))
                     {
                         await _repository.AddUser(newUser, password);
-                        return RedirectToAction("Index", "App");
+                        //return RedirectToAction("Index", "App");
+                        return Ok();
                     }
                 }
                 catch (Exception ex)

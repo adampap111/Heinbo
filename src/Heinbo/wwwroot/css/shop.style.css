@@ -587,7 +587,7 @@ li:first-child {
 ------------------------------------*/
 .twitter-block {
 	padding: 25px 0 75px;
-	background: url(~/img/twitter-bg.jpg) repeat;
+	background: url(../img/twitter-bg.jpg) repeat;
 }
 
 /*Heading*/
