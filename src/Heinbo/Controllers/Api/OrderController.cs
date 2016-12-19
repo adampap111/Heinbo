@@ -40,7 +40,7 @@ namespace Heinbo.Controllers.Api
             
             try
             {
-                await _mailService.SendEmailAsync("heinbomail555@gmail.com", currentUser.Email,
+                await _mailService.SendEmailAsync(currentUser.Email, "heinbomail555@gmail.com",
                 "order", mailBody , currentUser.LastName);
                 return Ok();
             }
