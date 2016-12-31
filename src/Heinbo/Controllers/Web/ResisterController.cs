@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Heinbo.Models;
 using Heinbo.ViewModels;
 using Heinbo.Services;
+using Microsoft.AspNetCore.Identity;
 
 namespace Heinbo.Controllers
 {
@@ -15,11 +16,14 @@ namespace Heinbo.Controllers
     public class ResisterController : Controller
     {
         private ISalesRepository _repository;
+        private SignInManager<User> _signInManager;
+        private UserManager<User> _userManager;
 
-
-        public ResisterController(ISalesRepository repository)
+        public ResisterController(ISalesRepository repository, SignInManager<User> signInManager, UserManager<User> userManager)
         {
             _repository = repository;
+            _signInManager = signInManager;
+            _userManager = userManager;
         }
 
         [HttpPost("")]
@@ -35,7 +39,16 @@ namespace Heinbo.Controllers
                     if (string.IsNullOrWhiteSpace(returnUrl))
                     {
                         await _repository.AddUser(newUser, password);
-                        //return RedirectToAction("Index", "App");
+                        var user = await _userManager.FindByEmailAsync(newUser.Email);
+                        if (user != null)
+                        {
+                            var _signInResult = await _signInManager
+                                .PasswordSignInAsync(user, theUser.Password, true, false);
+                        }
+                        else
+                        {
+                            ModelState.AddModelError("", "Ez az email cím nem szerepel az adatbáziusnkban.");
+                        }
                         return Ok();
                     }
                 }

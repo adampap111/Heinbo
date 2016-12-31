@@ -3,7 +3,7 @@
     angular.module("app-register")
     .controller("registerController", registerController);
 
-    function registerController($scope,$http,$location,$window) {
+    function registerController($http,$window) {
         var vm = this;
 
         vm.newUser = {};
@@ -17,10 +17,9 @@
             vm.errorMessage = "";
             $http.post("/api/register", vm.newUser)
             .then(function (response) {
-                //success
-                //$window.location.href = "/Auth/Login";
-                login();
-                vm.newUser = {};                
+                //success               
+                vm.newUser = {};
+                $window.location.href = "/";
             }, function (error) {
                 //failure
                 vm.errorMessage = "Failed to save the data" + error;
@@ -29,18 +28,18 @@
             });
         };
 
-        var login = function () {
-            $http.post("/Auth/Login", vm.newUser)
-                .then(function (response) {
-                    //success
-                    $window.location.href = "/";
-            }, function (error) {
-                //failure
-                vm.errorMessage = "Failed to login" + error;
-            }).finally(function () {
-                vm.isBusy = false;
-            });
-        };
+        //var login = function () {
+        //    $http.post("/Auth/Login", vm.newUser)
+        //        .then(function (response) {
+        //            //success
+        //            $window.location.href = "/";
+        //    }, function (error) {
+        //        //failure
+        //        vm.errorMessage = "Failed to login" + error;
+        //    }).finally(function () {
+        //        vm.isBusy = false;
+        //    });
+        //};
     }
 
 })(window, window.angular);
