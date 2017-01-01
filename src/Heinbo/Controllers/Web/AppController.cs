@@ -50,6 +50,7 @@ namespace Heinbo.Controllers.Web
             return View();
         }
 
+        [Authorize]
         public IActionResult Profile()
         {
             return View();
@@ -60,6 +61,7 @@ namespace Heinbo.Controllers.Web
             return View();
         }
 
+        [Authorize]
         public IActionResult ShoppingCart()
         {
             return View();

@@ -30,7 +30,7 @@ namespace Heinbo.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login([FromBody]UserViewModel vm, string returnUrl)
+        public async Task<IActionResult> Login(UserViewModel vm, string returnUrl)
         {
             if (ModelState.IsValid)
             {
