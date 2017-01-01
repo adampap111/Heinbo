@@ -27,7 +27,7 @@ namespace Heinbo.Controllers
         }
 
         [HttpPost("")]
-        public async Task<IActionResult> Post([FromBody]UserViewModel theUser, string returnUrl)
+        public async Task<IActionResult> Post([FromBody]UserViewModel theUser)
         {
             if (ModelState.IsValid)
             {
@@ -36,21 +36,18 @@ namespace Heinbo.Controllers
                 //Save to the database              
                 try
                 {
-                    if (string.IsNullOrWhiteSpace(returnUrl))
+                    await _repository.AddUser(newUser, password);
+                    var user = await _userManager.FindByEmailAsync(newUser.Email);
+                    if (user != null)
                     {
-                        await _repository.AddUser(newUser, password);
-                        var user = await _userManager.FindByEmailAsync(newUser.Email);
-                        if (user != null)
-                        {
-                            var _signInResult = await _signInManager
-                                .PasswordSignInAsync(user, theUser.Password, true, false);
-                        }
-                        else
-                        {
-                            ModelState.AddModelError("", "Ez az email cím nem szerepel az adatbáziusnkban.");
-                        }
-                        return Ok();
+                        var _signInResult = await _signInManager
+                            .PasswordSignInAsync(user, theUser.Password, true, false);
                     }
+                    else
+                    {
+                        ModelState.AddModelError("", "Ez az email cím nem szerepel az adatbáziusnkban.");
+                    }
+                    return Ok();
                 }
                 catch (Exception ex)
                 {

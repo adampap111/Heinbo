@@ -46,11 +46,11 @@ namespace Heinbo.Controllers.Api
             try
             {
                 var product = _repository.GetProductsByCategory(WebUtility.UrlDecode(category));
-                return Json((product));
+                return Ok((product));
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Failed to get Trips {ex}");
+                _logger.LogError($"Failed to get products {ex}");
                 return BadRequest("Error occured");
             }
         }
