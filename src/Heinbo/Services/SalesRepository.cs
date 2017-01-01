@@ -28,6 +28,10 @@ namespace Heinbo.Services
             _httpContext = contextAccessor.HttpContext;
             _userManager = userManager;
         }
+        public SalesRepository(SalesContext context)
+        {
+            _context = context;
+        }
 
         public Product GetProductByName(string productName)
         {
@@ -45,7 +49,7 @@ namespace Heinbo.Services
 
         public IEnumerable<Product> GetAllProducts()
         {
-            _logger.LogInformation("Getting all trips from the database");
+         //   _logger.LogInformation("Getting all trips from the database");
             return _context.Product.ToList();
         }
 
