@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace Heinbo.Models
@@ -11,5 +12,10 @@ namespace Heinbo.Models
         public string Street { get; set; }
         public int StreetNumber { get; set; }
         public string City { get; set; }
+
+        public static implicit operator User(IdentityResult v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

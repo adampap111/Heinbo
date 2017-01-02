@@ -14,7 +14,7 @@
   </PropertyGroup>
   <PropertyGroup>
     <SchemaVersion>2.0</SchemaVersion>
-    <ApplicationInsightsResourceId>/subscriptions/c1470d85-0e9f-4bd6-a6b6-afffe883f935/resourcegroups/heinbo/providers/microsoft.insights/components/Heinbo</ApplicationInsightsResourceId>
+    <ApplicationInsightsResourceId>/subscriptions/c1470d85-0e9f-4bd6-a6b6-afffe883f935/resourcegroups/heinbo/providers/microsoft.insights/components/heinbo</ApplicationInsightsResourceId>
   </PropertyGroup>
   <ItemGroup>
     <DnxInvisibleContent Include="bower.json" />

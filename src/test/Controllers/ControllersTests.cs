@@ -15,17 +15,17 @@ namespace test
     {
         private SalesContext _context;
         private ISalesRepository _repository;
-      
+
 
         [Fact]
         public void CartItemsTest()
         {
-            _context = CreateAndSeedContext();
-            var controller = new CartService(_context,null);
+      //      _context = CreateAndSeedContext();
+            var controller = new CartService(_context, null);
             try
             {
                 var results = controller.GetCartItems("adwa33dda");
-                
+
                 Assert.NotEqual(5, results.Count);
             }
             catch (Exception ex)
@@ -33,21 +33,21 @@ namespace test
 
             }
         }
-       
-      
 
-        private SalesContext CreateAndSeedContext()
-        {
-            var optionsBuilder = new DbContextOptionsBuilder<SalesContext>();
-            optionsBuilder.UseInMemoryDatabase();
-            var context = new SalesContext(_config,optionsBuilder.Options);
-            context.Database.EnsureDeleted();
-            context.Database.EnsureCreated();
-            context.CartItem.AddRange(BuildCartItems());
-            context.SaveChanges();
-            return context;
 
-        }
+
+        //     private SalesContext CreateAndSeedContext()
+        //   {
+        //        var optionsBuilder = new DbContextOptionsBuilder<SalesContext>();
+        //         optionsBuilder.UseInMemoryDatabase();
+        //    var context = new SalesContext(_config,optionsBuilder.Options);
+        //      context.Database.EnsureDeleted();
+        //    context.Database.EnsureCreated();
+        //     context.CartItem.AddRange(BuildCartItems());
+        //     context.SaveChanges();
+        //      return context;
+
+        //    }
         private List<CartItem> BuildCartItems()
         {
             var cartItems = new List<CartItem>
